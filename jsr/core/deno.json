@@ -1,6 +1,6 @@
 {
     "name": "@dotrex/core",
-    "version": "0.0.0-alpha.0",
+    "version": "0.0.0-alpha.1",
     "exports": {
         ".": "./mod.ts",
         "./collections": "./collections/mod.ts",
@@ -13,7 +13,6 @@
         "./deployments": "./deployments/mod.ts",
         "./types": "./types.ts"
     },
-
     "dnt": {
         "description": "Core dotrex primitives for defining tasks, jobs, and deployments",
         "keywords": [

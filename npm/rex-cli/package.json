@@ -1,6 +1,6 @@
 {
     "name": "@dotrex/rex-cli",
-    "version": "0.0.0-alpha.0",
+    "version": "0.0.0-alpha.1",
     "description": "The rex cli for running dotrex files tasks, jobs, and deployments.",
     "keywords": [
         "dotrex",
@@ -47,10 +47,10 @@
         "dotrex": "./esm/main_node.js"
     },
     "dependencies": {
-        "@dotrex/runtime": "*",
-        "@dotrex/core": "*",
-        "@dotrex/command": "*",
-        "@dotrex/flags": "*",
+        "@dotrex/runtime": "^0.0.0-alpha.1",
+        "@dotrex/core": "^0.0.0-alpha.1",
+        "@dotrex/command": "^0.0.0-alpha.1",
+        "@dotrex/flags": "^0.0.0-alpha.1",
         "@bearz/process": "^0.1.0",
         "@bearz/exec": "^0.1.0"
     },

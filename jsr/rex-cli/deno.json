@@ -1,12 +1,11 @@
 {
     "name": "@dotrex/rex-cli",
-    "version": "0.0.0-alpha.0",
+    "version": "0.0.0-alpha.1",
     "exports": {
         ".": "./main.ts",
         "./main": "./main.ts",
         "./main-node": "./main_node.ts"
     },
-
     "dnt": {
         "description": "The rex cli for running dotrex files tasks, jobs, and deployments.",
         "keywords": [

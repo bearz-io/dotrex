@@ -1,6 +1,6 @@
 {
     "name": "@dotrex/command",
-    "version": "0.0.0-alpha.0",
+    "version": "0.0.0-alpha.1",
     "exports": {
         ".": "./mod.ts",
         "./completions": "./completions/mod.ts",
@@ -15,7 +15,6 @@
         "./upgrade/provider/nest-land": "./upgrade/provider/nest_land.ts",
         "./upgrade/provider/npm": "./upgrade/provider/npm.ts"
     },
-
     "dnt": {
         "description": "A fork of cliffy/command for bun/node",
         "keywords": [

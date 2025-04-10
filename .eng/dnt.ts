@@ -10,6 +10,9 @@ const content = Deno.readTextFileSync(`${pwd}/.git/config`);
 const lines = content.split(/\r?\n/);
 let url = lines.find((line) => line.includes("url"))?.split("=")[1].trim();
 
+const scopeVersion = JSON.parse(Deno.readTextFileSync(`${pwd}/version.json`).trim())
+    .version as string;
+
 if (!url) {
     throw new Error("Could not find git url in .git/config");
 }
@@ -73,7 +76,7 @@ for (const project of projects) {
 
     for (const dep of denoJson.dnt?.dependencies ?? []) {
         if (dep.startsWith("@dotrex")) {
-            deps[dep] = "*";
+            deps[dep] = "^" + scopeVersion;
             continue;
         }
 
@@ -88,7 +91,7 @@ for (const project of projects) {
 
     for (const dep of denoJson.dnt?.devDependencies ?? []) {
         if (dep.startsWith("@dotrex")) {
-            devDeps[dep] = "*";
+            devDeps[dep] = "^" + scopeVersion;
             continue;
         }
         let version = importMap[dep];
