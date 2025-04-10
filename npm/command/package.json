@@ -110,8 +110,8 @@
     "@bearz/env": "^0.1.3",
     "@bearz/ansi": "^0.1.0",
     "@bearz/process": "^0.1.0",
-    "@dotrex/flags": "workspace:*",
-    "@dotrex/table": "workspace:*"
+    "@dotrex/flags": "*",
+    "@dotrex/table": "*"
   },
   "devDependencies": {
     "picocolors": "^1.0.0",

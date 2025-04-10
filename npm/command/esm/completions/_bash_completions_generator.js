@@ -2,24 +2,26 @@ import { MissingCommandNameCompletionsError } from "../_errors.js";
 import { FileType } from "../types/file.js";
 /** Generates bash completions script. */
 export class BashCompletionsGenerator {
-  name;
-  cmd;
-  /** Generates bash completions script for given command. */
-  static generate(name, cmd) {
-    if (!name || name === "COMMAND") {
-      throw new MissingCommandNameCompletionsError("bash");
+    name;
+    cmd;
+    /** Generates bash completions script for given command. */
+    static generate(name, cmd) {
+        if (!name || name === "COMMAND") {
+            throw new MissingCommandNameCompletionsError("bash");
+        }
+        return new BashCompletionsGenerator(name, cmd).generate();
     }
-    return new BashCompletionsGenerator(name, cmd).generate();
-  }
-  constructor(name, cmd) {
-    this.name = name;
-    this.cmd = cmd;
-  }
-  /** Generates bash completions code. */
-  generate() {
-    const path = this.cmd.getPath(this.name);
-    const version = this.cmd.getVersion() ? ` v${this.cmd.getVersion()}` : "";
-    return `#!/usr/bin/env bash
+    constructor(name, cmd) {
+        this.name = name;
+        this.cmd = cmd;
+    }
+    /** Generates bash completions code. */
+    generate() {
+        const path = this.cmd.getPath(this.name);
+        const version = this.cmd.getVersion()
+            ? ` v${this.cmd.getVersion()}`
+            : "";
+        return `#!/usr/bin/env bash
 # bash completion support for ${path}${version}
 
 _${replaceSpecialChars(path)}() {
@@ -117,46 +119,29 @@ _${replaceSpecialChars(path)}() {
 }
 
 complete -F _${replaceSpecialChars(path)} -o bashdefault -o default ${path}`;
-  }
-  /** Generates bash completions method for given command and child commands. */
-  generateCompletions(name, command, path = "", index = 1) {
-    path = (path ? path + " " : "") + name;
-    const commandCompletions = this.generateCommandCompletions(
-      command,
-      path,
-      index,
-    );
-    const childCommandCompletions = command.getCommands(false)
-      .filter((subCommand) => subCommand !== command)
-      .map((subCommand) =>
-        this.generateCompletions(
-          subCommand.getName(),
-          subCommand,
-          path,
-          index + 1,
-        )
-      )
-      .join("");
-    return `${commandCompletions}
+    }
+    /** Generates bash completions method for given command and child commands. */
+    generateCompletions(name, command, path = "", index = 1) {
+        path = (path ? path + " " : "") + name;
+        const commandCompletions = this.generateCommandCompletions(command, path, index);
+        const childCommandCompletions = command.getCommands(false)
+            .filter((subCommand) => subCommand !== command)
+            .map((subCommand) => this.generateCompletions(subCommand.getName(), subCommand, path, index + 1))
+            .join("");
+        return `${commandCompletions}
 
 ${childCommandCompletions}`;
-  }
-  generateCommandCompletions(command, path, index) {
-    const flags = this.getFlags(command);
-    const childCommandNames = command.getCommands(false)
-      .map((childCommand) => childCommand.getName());
-    const completionsPath = ~path.indexOf(" ")
-      ? " " + path.split(" ").slice(1).join(" ")
-      : "";
-    const optionArguments = this.generateOptionArguments(
-      command,
-      completionsPath,
-    );
-    const completionsCmd = this.generateCommandCompletionsCommand(
-      command,
-      completionsPath,
-    );
-    return `  __${replaceSpecialChars(path)}() {
+    }
+    generateCommandCompletions(command, path, index) {
+        const flags = this.getFlags(command);
+        const childCommandNames = command.getCommands(false)
+            .map((childCommand) => childCommand.getName());
+        const completionsPath = ~path.indexOf(" ")
+            ? " " + path.split(" ").slice(1).join(" ")
+            : "";
+        const optionArguments = this.generateOptionArguments(command, completionsPath);
+        const completionsCmd = this.generateCommandCompletionsCommand(command, completionsPath);
+        return `  __${replaceSpecialChars(path)}() {
     opts=(${[...flags, ...childCommandNames].join(" ")})
     ${completionsCmd}
     if [[ \${cur} == -* || \${COMP_CWORD} -eq ${index} ]] ; then
@@ -164,64 +149,55 @@ ${childCommandCompletions}`;
     fi
     ${optionArguments}
   }`;
-  }
-  getFlags(command) {
-    return command.getOptions(false)
-      .map((option) => option.flags)
-      .flat();
-  }
-  generateOptionArguments(command, completionsPath) {
-    let opts = "";
-    const options = command.getOptions(false);
-    if (options.length) {
-      opts += 'case "${prev}" in';
-      for (const option of options) {
-        const flags = option.flags
-          .map((flag) => flag.trim())
-          .join("|");
-        const completionsCmd = this.generateOptionCompletionsCommand(
-          command,
-          option.args,
-          completionsPath,
-          { standalone: option.standalone },
-        );
-        opts += `\n      ${flags}) ${completionsCmd} ;;`;
-      }
-      opts += "\n    esac";
     }
-    return opts;
-  }
-  generateCommandCompletionsCommand(command, path) {
-    const args = command.getArguments();
-    if (args.length) {
-      const type = command.getType(args[0].type);
-      if (type && type.handler instanceof FileType) {
-        return `_${replaceSpecialChars(this.name)}_file_dir`;
-      }
-      // @TODO: add support for multiple arguments
-      return `_${replaceSpecialChars(this.name)}_complete ${
-        args[0].action
-      }${path}`;
+    getFlags(command) {
+        return command.getOptions(false)
+            .map((option) => option.flags)
+            .flat();
     }
-    return "";
-  }
-  generateOptionCompletionsCommand(command, args, path, opts) {
-    if (args.length) {
-      const type = command.getType(args[0].type);
-      if (type && type.handler instanceof FileType) {
-        return `opts=(); _${replaceSpecialChars(this.name)}_file_dir`;
-      }
-      // @TODO: add support for multiple arguments
-      return `opts=(); _${replaceSpecialChars(this.name)}_complete ${
-        args[0].action
-      }${path}`;
+    generateOptionArguments(command, completionsPath) {
+        let opts = "";
+        const options = command.getOptions(false);
+        if (options.length) {
+            opts += 'case "${prev}" in';
+            for (const option of options) {
+                const flags = option.flags
+                    .map((flag) => flag.trim())
+                    .join("|");
+                const completionsCmd = this.generateOptionCompletionsCommand(command, option.args, completionsPath, { standalone: option.standalone });
+                opts += `\n      ${flags}) ${completionsCmd} ;;`;
+            }
+            opts += "\n    esac";
+        }
+        return opts;
     }
-    if (opts?.standalone) {
-      return "opts=()";
+    generateCommandCompletionsCommand(command, path) {
+        const args = command.getArguments();
+        if (args.length) {
+            const type = command.getType(args[0].type);
+            if (type && type.handler instanceof FileType) {
+                return `_${replaceSpecialChars(this.name)}_file_dir`;
+            }
+            // @TODO: add support for multiple arguments
+            return `_${replaceSpecialChars(this.name)}_complete ${args[0].action}${path}`;
+        }
+        return "";
     }
-    return "";
-  }
+    generateOptionCompletionsCommand(command, args, path, opts) {
+        if (args.length) {
+            const type = command.getType(args[0].type);
+            if (type && type.handler instanceof FileType) {
+                return `opts=(); _${replaceSpecialChars(this.name)}_file_dir`;
+            }
+            // @TODO: add support for multiple arguments
+            return `opts=(); _${replaceSpecialChars(this.name)}_complete ${args[0].action}${path}`;
+        }
+        if (opts?.standalone) {
+            return "opts=()";
+        }
+        return "";
+    }
 }
 function replaceSpecialChars(str) {
-  return str.replace(/[^a-zA-Z0-9]/g, "_");
+    return str.replace(/[^a-zA-Z0-9]/g, "_");
 }

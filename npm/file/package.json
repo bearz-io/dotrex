@@ -44,7 +44,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@dotrex/core": "workspace:*"
+    "@dotrex/core": "*"
   },
   "devDependencies": {
     "picocolors": "^1.0.0",

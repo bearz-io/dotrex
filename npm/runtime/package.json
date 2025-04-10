@@ -91,7 +91,7 @@
     "@bearz/fs": "^0.1.0",
     "@bearz/strings": "^0.1.3",
     "@bearz/ci-env": "^0.1.0",
-    "@dotrex/core": "workspace:*"
+    "@dotrex/core": "*"
   },
   "devDependencies": {
     "picocolors": "^1.0.0",

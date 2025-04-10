@@ -47,10 +47,10 @@
     "dotrex": "./esm/main_node.js"
   },
   "dependencies": {
-    "@dotrex/runtime": "workspace:*",
-    "@dotrex/core": "workspace:*",
-    "@dotrex/command": "workspace:*",
-    "@dotrex/flags": "workspace:*",
+    "@dotrex/runtime": "*",
+    "@dotrex/core": "*",
+    "@dotrex/command": "*",
+    "@dotrex/flags": "*",
     "@bearz/process": "^0.1.0",
     "@bearz/exec": "^0.1.0"
   },

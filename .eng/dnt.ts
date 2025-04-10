@@ -73,7 +73,7 @@ for (const project of projects) {
 
     for (const dep of denoJson.dnt?.dependencies ?? []) {
         if (dep.startsWith("@dotrex")) {
-            deps[dep] = "workspace:*";
+            deps[dep] = "*";
             continue;
         }
 
@@ -88,7 +88,7 @@ for (const project of projects) {
 
     for (const dep of denoJson.dnt?.devDependencies ?? []) {
         if (dep.startsWith("@dotrex")) {
-            devDeps[dep] = "workspace:*";
+            devDeps[dep] = "*";
             continue;
         }
         let version = importMap[dep];
@@ -188,3 +188,15 @@ let content2 = Deno.readTextFileSync(`${pwd}/npm/rex-cli/esm/main_node.js`);
 content2 = `#!/usr/bin/env node
 ${content2}`;
 Deno.writeTextFileSync(`${pwd}/npm/rex-cli/esm/main_node.js`, content2);
+
+const cmd = new Deno.Command("bun", {
+    args: ["run", "npm", "install", "--package-lock-only"],
+    stdout: "inherit",
+    stderr: "inherit",
+    cwd: `${pwd}/npm`,
+});
+
+const o = await cmd.output();
+if (o.code !== 0) {
+    throw new Error("Failed to run yarn install --package-lock-only");
+}

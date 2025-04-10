@@ -1,20 +1,20 @@
 /** Default border characters. */
 export declare const border: {
-  top: string;
-  topMid: string;
-  topLeft: string;
-  topRight: string;
-  bottom: string;
-  bottomMid: string;
-  bottomLeft: string;
-  bottomRight: string;
-  left: string;
-  leftMid: string;
-  mid: string;
-  midMid: string;
-  right: string;
-  rightMid: string;
-  middle: string;
+    top: string;
+    topMid: string;
+    topLeft: string;
+    topRight: string;
+    bottom: string;
+    bottomMid: string;
+    bottomLeft: string;
+    bottomRight: string;
+    left: string;
+    leftMid: string;
+    mid: string;
+    midMid: string;
+    right: string;
+    rightMid: string;
+    middle: string;
 };
 /** Default border characters. */
 export type Border = typeof border;

@@ -9,8 +9,8 @@
         "@bearz/ansi": "^0.1.0",
         "@bearz/env": "^0.1.3",
         "@bearz/process": "^0.1.0",
-        "@dotrex/flags": "workspace:*",
-        "@dotrex/table": "workspace:*",
+        "@dotrex/flags": "*",
+        "@dotrex/table": "*",
       },
       "devDependencies": {
         "@bearz/assert": "^0.1.0",
@@ -41,7 +41,7 @@
       "name": "@dotrex/file",
       "version": "0.0.0-alpha.0",
       "dependencies": {
-        "@dotrex/core": "workspace:*",
+        "@dotrex/core": "*",
       },
       "devDependencies": {
         "@bearz/assert": "^0.1.0",
@@ -68,10 +68,10 @@
       "dependencies": {
         "@bearz/exec": "^0.1.0",
         "@bearz/process": "^0.1.0",
-        "@dotrex/command": "workspace:*",
-        "@dotrex/core": "workspace:*",
-        "@dotrex/flags": "workspace:*",
-        "@dotrex/runtime": "workspace:*",
+        "@dotrex/command": "*",
+        "@dotrex/core": "*",
+        "@dotrex/flags": "*",
+        "@dotrex/runtime": "*",
       },
       "devDependencies": {
         "@bearz/assert": "^0.1.0",
@@ -92,7 +92,7 @@
         "@bearz/result": "^0.0.0",
         "@bearz/secrets": "^0.1.0",
         "@bearz/strings": "^0.1.3",
-        "@dotrex/core": "workspace:*",
+        "@dotrex/core": "*",
       },
       "devDependencies": {
         "@bearz/assert": "^0.1.0",

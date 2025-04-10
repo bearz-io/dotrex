@@ -1,76 +1,76 @@
 import type { Command } from "./command.js";
 import type { EnvVar } from "./types.js";
 export declare class CommandError extends Error {
-  constructor(message: string);
+    constructor(message: string);
 }
 export interface ValidationErrorOptions {
-  exitCode?: number;
+    exitCode?: number;
 }
 export declare class ValidationError extends CommandError {
-  readonly exitCode: number;
-  cmd?: Command;
-  constructor(message: string, { exitCode }?: ValidationErrorOptions);
+    readonly exitCode: number;
+    cmd?: Command;
+    constructor(message: string, { exitCode }?: ValidationErrorOptions);
 }
 export declare class DuplicateOptionNameError extends CommandError {
-  constructor(optionName: string, commandName: string);
+    constructor(optionName: string, commandName: string);
 }
 export declare class MissingCommandNameCompletionsError extends CommandError {
-  constructor(shell: string);
+    constructor(shell: string);
 }
 export declare class MissingCommandNameError extends CommandError {
-  constructor();
+    constructor();
 }
 export declare class DuplicateCommandNameError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class DuplicateCommandAliasError extends CommandError {
-  constructor(alias: string);
+    constructor(alias: string);
 }
 export declare class CommandNotFoundError extends CommandError {
-  constructor(name: string, commands: Array<Command>, excluded?: Array<string>);
+    constructor(name: string, commands: Array<Command>, excluded?: Array<string>);
 }
 export declare class DuplicateTypeError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class DuplicateCompletionError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class DuplicateExampleError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class DuplicateEnvVarError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class MissingRequiredEnvVarError extends ValidationError {
-  constructor(envVar: EnvVar);
+    constructor(envVar: EnvVar);
 }
 export declare class TooManyEnvVarValuesError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class UnexpectedOptionalEnvVarValueError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class UnexpectedVariadicEnvVarValueError extends CommandError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class DefaultCommandNotFoundError extends CommandError {
-  constructor(name: string, commands: Array<Command>);
+    constructor(name: string, commands: Array<Command>);
 }
 export declare class UnknownCompletionCommandError extends CommandError {
-  constructor(name: string, commands: Array<Command>);
+    constructor(name: string, commands: Array<Command>);
 }
 export declare class UnknownCommandError extends ValidationError {
-  constructor(name: string, commands: Array<Command>, excluded?: Array<string>);
+    constructor(name: string, commands: Array<Command>, excluded?: Array<string>);
 }
 export declare class NoArgumentsAllowedError extends ValidationError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class MissingArgumentsError extends ValidationError {
-  constructor(names: Array<string>);
+    constructor(names: Array<string>);
 }
 export declare class MissingArgumentError extends ValidationError {
-  constructor(name: string);
+    constructor(name: string);
 }
 export declare class TooManyArgumentsError extends ValidationError {
-  constructor(args: Array<string>);
+    constructor(args: Array<string>);
 }

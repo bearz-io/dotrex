@@ -1,10 +1,6 @@
 import type { Command } from "./command.js";
 import type { TypeOrTypeHandler } from "./types.js";
-import type {
-  ArgumentValue,
-  CompleteHandlerResult,
-  ValuesHandlerResult,
-} from "./types.js";
+import type { ArgumentValue, CompleteHandlerResult, ValuesHandlerResult } from "./types.js";
 /**
  * Base class for custom types.
  *
@@ -31,19 +27,18 @@ import type {
  * ```
  */
 export declare abstract class Type<TValue> {
-  abstract parse(type: ArgumentValue): TValue;
-  /**
-   * Returns values displayed in help text. If no complete method is provided,
-   * these values are also used for shell completions.
-   */
-  values?(cmd: Command, parent?: Command): ValuesHandlerResult;
-  /**
-   * Returns shell completion values. If no complete method is provided,
-   * values from the values method are used.
-   */
-  complete?(cmd: Command, parent?: Command): CompleteHandlerResult;
+    abstract parse(type: ArgumentValue): TValue;
+    /**
+     * Returns values displayed in help text. If no complete method is provided,
+     * these values are also used for shell completions.
+     */
+    values?(cmd: Command, parent?: Command): ValuesHandlerResult;
+    /**
+     * Returns shell completion values. If no complete method is provided,
+     * values from the values method are used.
+     */
+    complete?(cmd: Command, parent?: Command): CompleteHandlerResult;
 }
 export declare namespace Type {
-  type infer<TType, TDefault = TType> = TType extends
-    TypeOrTypeHandler<infer Value> ? Value : TDefault;
+    type infer<TType, TDefault = TType> = TType extends TypeOrTypeHandler<infer Value> ? Value : TDefault;
 }
