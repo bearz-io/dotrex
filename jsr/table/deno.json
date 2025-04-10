@@ -1,0 +1,24 @@
+{
+    "name": "@dotrex/table",
+    "version": "0.0.0-alpha.0",
+    "exports": {
+        ".": "./mod.ts"
+    },
+
+    "dnt": {
+        "description": "A fork of cliffy/table for bun/node",
+        "keywords": [
+            "dotrex",
+            "cliffy",
+            "table"
+        ],
+        "dependencies": [
+            "@bearz/ansi"
+        ],
+        "devDependencies": [
+            "@bearz/testing",
+            "@bearz/assert",
+            "@types/node"
+        ]
+    }
+}

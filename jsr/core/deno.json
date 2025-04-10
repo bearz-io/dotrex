@@ -1,0 +1,40 @@
+{
+    "name": "@dotrex/core",
+    "version": "0.0.0-alpha.0",
+    "exports": {
+        ".": "./mod.ts",
+        "./collections": "./collections/mod.ts",
+        "./enums": "./enums.ts",
+        "./host": "./host/mod.ts",
+        "./context": "./context.ts",
+        "./tasks": "./tasks/mod.ts",
+        "./pipelines": "./pipelines/mod.ts",
+        "./jobs": "./jobs/mod.ts",
+        "./deployments": "./deployments/mod.ts",
+        "./types": "./types.ts"
+    },
+
+    "dnt": {
+        "description": "Core dotrex primitives for defining tasks, jobs, and deployments",
+        "keywords": [
+            "dotrex",
+            "tasks",
+            "jobs",
+            "deployments",
+            "runner"
+        ],
+        "dependencies": [
+            "@bearz/option",
+            "@bearz/strings",
+            "@bearz/ansi",
+            "@bearz/result",
+            "@bearz/secrets",
+            "@bearz/env"
+        ],
+        "devDependencies": [
+            "@bearz/testing",
+            "@bearz/assert",
+            "@types/node"
+        ]
+    }
+}

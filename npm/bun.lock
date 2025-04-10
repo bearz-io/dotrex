@@ -1,0 +1,171 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {},
+    "command": {
+      "name": "@dotrex/command",
+      "version": "1.0.0-rc.7",
+      "dependencies": {
+        "@bearz/ansi": "^0.1.0",
+        "@bearz/env": "^0.1.3",
+        "@bearz/process": "^0.1.0",
+        "@dotrex/flags": "workspace:*",
+        "@dotrex/table": "workspace:*",
+      },
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
+    "core": {
+      "name": "@dotrex/core",
+      "version": "0.0.0-alpha.0",
+      "dependencies": {
+        "@bearz/ansi": "^0.1.0",
+        "@bearz/env": "^0.1.3",
+        "@bearz/option": "^0.0.0",
+        "@bearz/result": "^0.0.0",
+        "@bearz/secrets": "^0.1.0",
+        "@bearz/strings": "^0.1.3",
+      },
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
+    "file": {
+      "name": "@dotrex/file",
+      "version": "0.0.0-alpha.0",
+      "dependencies": {
+        "@dotrex/core": "workspace:*",
+      },
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
+    "flags": {
+      "name": "@dotrex/flags",
+      "version": "0.0.0-alpha.0",
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
+    "rex-cli": {
+      "name": "@dotrex/rex-cli",
+      "version": "0.0.0-alpha.0",
+      "dependencies": {
+        "@bearz/exec": "^0.1.0",
+        "@bearz/process": "^0.1.0",
+        "@dotrex/command": "workspace:*",
+        "@dotrex/core": "workspace:*",
+        "@dotrex/flags": "workspace:*",
+        "@dotrex/runtime": "workspace:*",
+      },
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
+    "runtime": {
+      "name": "@dotrex/runtime",
+      "version": "0.0.0-alpha.0",
+      "dependencies": {
+        "@bearz/ansi": "^0.1.0",
+        "@bearz/ci-env": "^0.1.0",
+        "@bearz/env": "^0.1.3",
+        "@bearz/fs": "^0.1.0",
+        "@bearz/path": "^0.0.0",
+        "@bearz/result": "^0.0.0",
+        "@bearz/secrets": "^0.1.0",
+        "@bearz/strings": "^0.1.3",
+        "@dotrex/core": "workspace:*",
+      },
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
+    "table": {
+      "name": "@dotrex/table",
+      "version": "0.0.0-alpha.0",
+      "dependencies": {
+        "@bearz/ansi": "^0.1.0",
+      },
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
+  },
+  "packages": {
+    "@bearz/ansi": ["@bearz/ansi@0.1.0", "", { "dependencies": { "@bearz/env": "^0.1.3", "@bearz/fmt": "^0.1.0", "@bearz/process": "^0.1.0" } }, "sha512-ES1477wAghoEeufWChAjv5Tk0TVgxKhZwc/ccm7xpmlNU1RrUjAXYlP8mI2uJn/g3hbEpdbGrKR4jsOQyhp9bA=="],
+
+    "@bearz/assert": ["@bearz/assert@0.1.0", "", {}, "sha512-tlQIt+AEbJjR5zICn30LgaYqAaNn3CtVwC3feqlL5zQf0a3CrjBietx5Ie2gp1EkHydB/sUW6M2LjLEyUP1uNQ=="],
+
+    "@bearz/chars": ["@bearz/chars@0.1.0", "", {}, "sha512-e3k53z3NH5swlEMOFcVzIw1TaH19dBBYvVyEUC1Jk0TVy2F5qOgJkTf6xKSkaX1yu/QlwljkMN9uYpkG0M0H7Q=="],
+
+    "@bearz/ci-env": ["@bearz/ci-env@0.1.0", "", { "dependencies": { "@bearz/ansi": "^0.1.0", "@bearz/dotenv": "^0.1.0", "@bearz/env": "^0.1.3", "@bearz/fmt": "^0.1.0", "@bearz/fs": "^0.1.0", "@bearz/secrets": "^0.1.0" } }, "sha512-z3/df5EptlYRK+DYoI5j432urBD/iNzFkCx8fNDT7ad4gZ/0QOL+fbj+dU7MewF3twrI82205FYJRZbeLitgJQ=="],
+
+    "@bearz/dotenv": ["@bearz/dotenv@0.1.0", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/env": "^0.1.3", "@bearz/strings": "^0.1.3" } }, "sha512-jFZkPfw/dL/p+CUrNm3CZrR1LF7OI4Lj8/lVr9GjJXf77+j7Fw7tZTcOZu8IWjOFQ4Tfoew7yA69IeMclfd3FQ=="],
+
+    "@bearz/env": ["@bearz/env@0.1.3", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/strings": "^0.1.3" } }, "sha512-U2X1RVK9SZxNTYSJ1isRU11gg4DwZH5AuWG4tNI2Kt13JYe/j04pPYPbBO6ciVQMlAAOfPn6fPd6bha8/51niQ=="],
+
+    "@bearz/exec": ["@bearz/exec@0.1.0", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/env": "^0.1.3", "@bearz/fs": "^0.1.0", "@bearz/path": "^0.0.0", "@bearz/strings": "^0.1.3" } }, "sha512-beBbehxLZb/sjLpaXU64nObFis1cjj2cqDdaY1nH0bLe6j0FdLa2/nrKl8eXhE59Mum04vco1dKiSfSegYNl/g=="],
+
+    "@bearz/fmt": ["@bearz/fmt@0.1.0", "", { "dependencies": { "@bearz/process": "^0.1.0" } }, "sha512-cs1TlpJEFhPp29zd2klcGt5Lc0UE25DGnSK7uqYb/drF9W4Upnl2ab3Xb/A5tUrMhs1AbfQDw8uDo8sAQ3wqWg=="],
+
+    "@bearz/fs": ["@bearz/fs@0.1.0", "", { "dependencies": { "@bearz/path": "^0.0.0" } }, "sha512-Y+fEND3OGVKASLDda0xl/JftrHM5DaB9jrQpRakdZmxLQxTm+z2QIvjNePW/SfyFOJMGvmnwaehqyHJpQU/CjA=="],
+
+    "@bearz/option": ["@bearz/option@0.0.0", "", {}, "sha512-8UU62gBotif3bXiLq85O2BXE/Er7+Gr9pgUZQVY9vw4LUdDoDbPDka2wqLaQHo97gEqlK6T078hTKJi5ziBU/w=="],
+
+    "@bearz/path": ["@bearz/path@0.0.0", "", { "dependencies": { "@bearz/chars": "^0.1.0" } }, "sha512-dDxIet/12AqMEMqNUkJKoTv/0VTsMiM1oG7uFoO+dtoFV8DZzMDGzvTCpKKcV84IB1NmHmMsOAuCCt9eYLufLw=="],
+
+    "@bearz/process": ["@bearz/process@0.1.0", "", {}, "sha512-PFWY2xOcj0Z22s8dOQEWtRY+sYsBEuyBCHfKB5IGYosV3KDJEyQoCiKRsDQSoGdsHp83I8rUzvoev5BIuV+ukg=="],
+
+    "@bearz/result": ["@bearz/result@0.0.0", "", { "dependencies": { "@bearz/option": "^0.0.0" } }, "sha512-Jk/Kqz/WBx+7EkHe3d6Mkklse4nEL7PIeOyn25ttDMvAbKjmpovTzDqDlqIDORRllTu2IHOdCb+dmxPwqolBAw=="],
+
+    "@bearz/secrets": ["@bearz/secrets@0.1.0", "", { "dependencies": { "@bearz/chars": "^0.1.0" } }, "sha512-goNgjgIn1f3fFvTy2FRnhYXopc4rT2zvCJrf3ElL8kK8DIM47UL2T2qwkBnLgsEupO7F6am+590BeFIir8Rc+Q=="],
+
+    "@bearz/slices": ["@bearz/slices@0.1.1", "", { "dependencies": { "@bearz/chars": "^0.1.0" } }, "sha512-XHOKHea6UtWg9goUceyM4ABAaez28OWrmb0bLj2ZtNuJk5rYu2AoX/LTY1eFVSKZbeZxUvuQHR/qdk6FGmdVQQ=="],
+
+    "@bearz/strings": ["@bearz/strings@0.1.3", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/slices": "^0.1.1" } }, "sha512-0oZO+2SeC4QTVV2icxweGfxjBADhB9NqdUI0UJUabi29YaN3fU2xOslh3O9g08CZI5h3VQXqYRDcqjz/q6BnWw=="],
+
+    "@bearz/testing": ["@bearz/testing@0.0.0", "", {}, "sha512-tKBN8kBR2nP8mpZLJFrqG0Esej23eXLXZNrxj5cAtwT6vbGMKPIhePqVQH8zgcJOlhivKYZNmHjk36px4MaFAQ=="],
+
+    "@dotrex/command": ["@dotrex/command@workspace:command"],
+
+    "@dotrex/core": ["@dotrex/core@workspace:core"],
+
+    "@dotrex/file": ["@dotrex/file@workspace:file"],
+
+    "@dotrex/flags": ["@dotrex/flags@workspace:flags"],
+
+    "@dotrex/rex-cli": ["@dotrex/rex-cli@workspace:rex-cli"],
+
+    "@dotrex/runtime": ["@dotrex/runtime@workspace:runtime"],
+
+    "@dotrex/table": ["@dotrex/table@workspace:table"],
+
+    "@types/node": ["@types/node@22.14.0", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-Kmpl+z84ILoG+3T/zQFyAJsU6EPTmOCj8/2+83fSN6djd6I4o7uOuGIH6vq3PrjY5BGitSbFuMN18j3iknubbA=="],
+
+    "picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
+
+    "undici-types": ["undici-types@6.21.0", "", {}, "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="],
+  }
+}

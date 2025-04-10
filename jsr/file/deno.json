@@ -1,0 +1,27 @@
+{
+    "name": "@dotrex/file",
+    "version": "0.0.0-alpha.0",
+    "exports": {
+        ".": "./mod.ts"
+    },
+
+    "dnt": {
+        "description": "Core dotrex primitives for defining tasks, jobs, and deployments in rex files",
+        "keywords": [
+            "dotrex",
+            "tasks",
+            "jobs",
+            "deployments",
+            "runner",
+            "rex"
+        ],
+        "dependencies": [
+            "@dotrex/core"
+        ],
+        "devDependencies": [
+            "@bearz/testing",
+            "@bearz/assert",
+            "@types/node"
+        ]
+    }
+}

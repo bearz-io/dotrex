@@ -1,0 +1,40 @@
+{
+    "name": "@dotrex/runtime",
+    "version": "0.0.0-alpha.0",
+    "description": "Rex Core",
+    "exports": {
+        ".": "./mod.ts",
+        "./bus": "./bus/mod.ts",
+        "./host/writer": "./host/writer.ts",
+        "./discovery": "./discovery/mod.ts",
+        "./tasks": "./tasks/mod.ts",
+        "./jobs": "./jobs/mod.ts",
+        "./deployments": "./deployments/mod.ts",
+        "./di": "./di/mod.ts"
+    },
+
+    "dnt": {
+        "description": "The runtime for running dotrex tasks, jobs, and deployments.",
+        "keywords": [
+            "dotrex",
+            "cliffy",
+            "table"
+        ],
+        "dependencies": [
+            "@bearz/ansi",
+            "@bearz/result",
+            "@bearz/secrets",
+            "@bearz/env",
+            "@bearz/path",
+            "@bearz/fs",
+            "@bearz/strings",
+            "@bearz/ci-env",
+            "@dotrex/core"
+        ],
+        "devDependencies": [
+            "@bearz/testing",
+            "@bearz/assert",
+            "@types/node"
+        ]
+    }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "@dotrex/file",
+  "version": "0.0.0-alpha.0",
+  "description": "Core dotrex primitives for defining tasks, jobs, and deployments in rex files",
+  "keywords": [
+    "dotrex",
+    "tasks",
+    "jobs",
+    "deployments",
+    "runner",
+    "rex"
+  ],
+  "homepage": "bearz.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bearz-io/dotrex.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bearz-io/dotrex/discussions"
+  },
+  "module": "./esm/mod.js",
+  "types": "./types/mod.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/mod.d.ts",
+        "default": "./esm/mod.js"
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test",
+    "test:bun": "bun test"
+  },
+  "authors": [
+    {
+      "name": "jolt9dev",
+      "email": "dev@jolt9.com"
+    }
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "type": "module",
+  "dependencies": {
+    "@dotrex/core": "workspace:*"
+  },
+  "devDependencies": {
+    "picocolors": "^1.0.0",
+    "@bearz/testing": "^0.0.0",
+    "@bearz/assert": "^0.1.0",
+    "@types/node": "^22.14.0"
+  },
+  "_generatedBy": "dnt@dev"
+}

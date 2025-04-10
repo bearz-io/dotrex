@@ -1,0 +1,21 @@
+{
+    "name": "@dotrex/flags",
+    "version": "0.0.0-alpha.0",
+    "exports": {
+        ".": "./mod.ts"
+    },
+    "dnt": {
+        "description": "A fork of cliffy/flags for bun/node",
+        "keywords": [
+            "dotrex",
+            "cliffy",
+            "table"
+        ],
+        "dependencies": [],
+        "devDependencies": [
+            "@bearz/testing",
+            "@bearz/assert",
+            "@types/node"
+        ]
+    }
+}
