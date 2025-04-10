@@ -200,3 +200,7 @@ const o = await cmd.output();
 if (o.code !== 0) {
     throw new Error("Failed to run yarn install --package-lock-only");
 }
+
+await Deno.chmod(`${pwd}/npm/rex-cli/esm/main_node.js`, 0o777);
+
+await import("./fmt-npm.ts");

@@ -14,11 +14,13 @@
             ".github",
             "**/*.test.ts",
             "node_modules/**",
-            "npm",
-            "npm/**",
+            "./npm",
             ".artifacts",
             "vitest.config.ts",
             ".prototools"
+        ],
+        "include": [
+            "./jsr"
         ]
     },
     "tasks": {
@@ -100,8 +102,7 @@
         }
     },
     "exclude": [
-        "npm",
-        "npm/**",
+        "./npm",
         ".vscode",
         ".github"
     ],

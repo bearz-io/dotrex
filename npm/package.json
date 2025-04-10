@@ -1,9 +1,9 @@
 {
-  "private": true,
-  "scripts": {
-    "rex": "./node_modules/.bin/rex"
-  },
-  "workspaces": [
-    "*"
-  ]
+    "private": true,
+    "scripts": {
+        "rex": "./node_modules/.bin/rex"
+    },
+    "workspaces": [
+        "*"
+    ]
 }

@@ -271,84 +271,68 @@ import { args } from "@bearz/process/args";
 import { exit } from "@bearz/process/exit";
 import { get } from "@bearz/env";
 const app = new Command()
-  .name("rex")
-  .description(
-    `Rex is a developer's sidekick. Rex helps you automate tasks and manage your project.
+    .name("rex")
+    .description(
+        `Rex is a developer's sidekick. Rex helps you automate tasks and manage your project.
 
 Rex can run tasks, jobs, and deployments from a rexfile.ts. Tasks are a unit of work and can
 depend on other tasks. Jobs are a collection of tasks that run in order. Deployments are a
 special type of job that has has before and after tasks and the primary task is the deployment.
         `,
-  )
-  .version(VERSION)
-  .arguments("[target:string[]:targets] [...args]")
-  .complete("targets", async () => {
-    return await getAll();
-  })
-  .type("loglevel", logLevels)
-  .option("-f, --file <file:file>", "The rexfile to run")
-  .option("-v --log-level <log-level:loglevel>", "Enable debug mode", {
-    default: "info",
-  })
-  .option("-t, --timeout <timeout:number>", "Set the timeout in minutes.")
-  .option(
-    "-c --context <context:string>",
-    "The context (environment) name. Defaults to 'default'",
-    { default: "default" },
-  )
-  .option("-e --env <env:string>", "Sets an environment variable", {
-    collect: true,
-  })
-  .option(
-    "--env-file, --ef <env-file:file>",
-    "Sets an environment variable from a file",
-    {
-      collect: true,
-    },
-  )
-  .stopEarly()
-  .action(
-    async (
-      { file, logLevel, timeout, env, envFile, context },
-      targets,
-      ...args
-    ) => {
-      const runner = new Runner();
-      const controller = new AbortController();
-      onExit(() => {
-        controller.abort();
-        exit(2);
-      });
-      const options = {
-        file: file,
-        targets: targets ?? ["default"],
-        command: "run",
-        timeout: timeout,
-        logLevel: parseLogLevel(logLevel),
-        env: env,
-        envFile: envFile,
-        context: context,
-        signal: controller.signal,
-        args: args,
-      };
-      await runner.run(options);
-    },
-  )
-  .command("task", taskCommand)
-  .command("job", jobCommand)
-  .command("list", listCommand)
-  .command("deploy", deployCommand)
-  .command("rollback", rollbackCommand)
-  .command("destroy", destroyCommand)
-  .command("completions", new CompletionsCommand());
+    )
+    .version(VERSION)
+    .arguments("[target:string[]:targets] [...args]")
+    .complete("targets", async () => {
+        return await getAll();
+    })
+    .type("loglevel", logLevels)
+    .option("-f, --file <file:file>", "The rexfile to run")
+    .option("-v --log-level <log-level:loglevel>", "Enable debug mode", { default: "info" })
+    .option("-t, --timeout <timeout:number>", "Set the timeout in minutes.")
+    .option(
+        "-c --context <context:string>",
+        "The context (environment) name. Defaults to 'default'",
+        { default: "default" },
+    )
+    .option("-e --env <env:string>", "Sets an environment variable", { collect: true })
+    .option("--env-file, --ef <env-file:file>", "Sets an environment variable from a file", {
+        collect: true,
+    })
+    .stopEarly()
+    .action(async ({ file, logLevel, timeout, env, envFile, context }, targets, ...args) => {
+        const runner = new Runner();
+        const controller = new AbortController();
+        onExit(() => {
+            controller.abort();
+            exit(2);
+        });
+        const options = {
+            file: file,
+            targets: targets ?? ["default"],
+            command: "run",
+            timeout: timeout,
+            logLevel: parseLogLevel(logLevel),
+            env: env,
+            envFile: envFile,
+            context: context,
+            signal: controller.signal,
+            args: args,
+        };
+        await runner.run(options);
+    })
+    .command("task", taskCommand)
+    .command("job", jobCommand)
+    .command("list", listCommand)
+    .command("deploy", deployCommand)
+    .command("rollback", rollbackCommand)
+    .command("destroy", destroyCommand)
+    .command("completions", new CompletionsCommand());
 // todo: add pwsh completion
 // https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/register-argumentcompleter?view=powershell-7.4&viewFallbackFrom=powershell-7.1&WT.mc_id=modinfra-35653-salean
 if (
-  (import.meta.url ===
-    ("file:///" + process.argv[1].replace(/\\/g, "/")).replace(
-      /\/{3,}/,
-      "///",
-    )) || get("NODE_CALL") === "1"
+    (import.meta.url ===
+        ("file:///" + process.argv[1].replace(/\\/g, "/")).replace(/\/{3,}/, "///")) ||
+    get("NODE_CALL") === "1"
 ) {
-  await app.parse(args.slice());
+    await app.parse(args.slice());
 }

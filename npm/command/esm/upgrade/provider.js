@@ -26,98 +26,88 @@ import { Table } from "@dotrex/table";
  * ```
  */
 export class Provider {
-  main;
-  maxListSize = 25;
-  logger;
-  maxCols = 8;
-  constructor({ main, logger = console } = {}) {
-    this.main = main;
-    this.logger = logger;
-  }
-  getSpecifier(name, version, defaultMain) {
-    return `${this.getRegistryUrl(name, version)}${this.getMain(defaultMain)}`;
-  }
-  async isOutdated(name, currentVersion, targetVersion) {
-    const { latest, versions } = await this.getVersions(name);
-    if (targetVersion === "latest") {
-      targetVersion = latest;
+    main;
+    maxListSize = 25;
+    logger;
+    maxCols = 8;
+    constructor({ main, logger = console } = {}) {
+        this.main = main;
+        this.logger = logger;
     }
-    // Check if requested version exists.
-    if (targetVersion && !versions.includes(targetVersion)) {
-      throw new ValidationError(
-        `The provided version ${
-          bold(red(targetVersion))
-        } is not found.\n\n    ${
-          cyan(
-            `Visit ${
-              brightBlue(this.getRepositoryUrl(name))
-            } for available releases or run again with the ${(yellow(
-              "-l",
-            ))} or ${(yellow("--list-versions"))} command.`,
-          )
-        }`,
-      );
+    getSpecifier(name, version, defaultMain) {
+        return `${this.getRegistryUrl(name, version)}${this.getMain(defaultMain)}`;
     }
-    // Check if requested version is already the latest available version.
-    if (latest && latest === currentVersion && latest === targetVersion) {
-      this.logger.warn(
-        yellow(
-          `You're already using the latest available version ${currentVersion} of ${name}.`,
-        ),
-      );
-      return false;
-    }
-    // Check if requested version is already installed.
-    if (targetVersion && currentVersion === targetVersion) {
-      this.logger.warn(
-        yellow(`You're already using version ${currentVersion} of ${name}.`),
-      );
-      return false;
-    }
-    return true;
-  }
-  async listVersions(name, currentVersion) {
-    const { versions } = await this.getVersions(name);
-    this.printVersions(versions, currentVersion);
-  }
-  printVersions(
-    versions,
-    currentVersion,
-    { maxCols = this.maxCols, indent = 0 } = {},
-  ) {
-    versions = versions.slice();
-    if (versions?.length) {
-      versions = versions.map((version) =>
-        currentVersion && currentVersion === version
-          ? green(`* ${version}`)
-          : `  ${version}`
-      );
-      if (versions.length > this.maxListSize) {
-        const table = new Table().indent(indent);
-        const rowSize = Math.ceil(versions.length / maxCols);
-        const colSize = Math.min(versions.length, maxCols);
-        let versionIndex = 0;
-        for (let colIndex = 0; colIndex < colSize; colIndex++) {
-          for (let rowIndex = 0; rowIndex < rowSize; rowIndex++) {
-            if (!table[rowIndex]) {
-              table[rowIndex] = [];
-            }
-            table[rowIndex][colIndex] = versions[versionIndex++];
-          }
+    async isOutdated(name, currentVersion, targetVersion) {
+        const { latest, versions } = await this.getVersions(name);
+        if (targetVersion === "latest") {
+            targetVersion = latest;
         }
-        console.log(table.toString());
-      } else {
-        console.log(
-          versions.map((version) => " ".repeat(indent) + version).join("\n"),
-        );
-      }
+        // Check if requested version exists.
+        if (targetVersion && !versions.includes(targetVersion)) {
+            throw new ValidationError(
+                `The provided version ${bold(red(targetVersion))} is not found.\n\n    ${
+                    cyan(
+                        `Visit ${
+                            brightBlue(this.getRepositoryUrl(name))
+                        } for available releases or run again with the ${(yellow(
+                            "-l",
+                        ))} or ${(yellow("--list-versions"))} command.`,
+                    )
+                }`,
+            );
+        }
+        // Check if requested version is already the latest available version.
+        if (latest && latest === currentVersion && latest === targetVersion) {
+            this.logger.warn(
+                yellow(
+                    `You're already using the latest available version ${currentVersion} of ${name}.`,
+                ),
+            );
+            return false;
+        }
+        // Check if requested version is already installed.
+        if (targetVersion && currentVersion === targetVersion) {
+            this.logger.warn(yellow(`You're already using version ${currentVersion} of ${name}.`));
+            return false;
+        }
+        return true;
     }
-  }
-  setLogger(logger) {
-    this.logger = logger;
-  }
-  getMain(defaultMain) {
-    const main = this.main ?? defaultMain;
-    return main ? `/${main}` : "";
-  }
+    async listVersions(name, currentVersion) {
+        const { versions } = await this.getVersions(name);
+        this.printVersions(versions, currentVersion);
+    }
+    printVersions(versions, currentVersion, { maxCols = this.maxCols, indent = 0 } = {}) {
+        versions = versions.slice();
+        if (versions?.length) {
+            versions = versions.map((version) =>
+                currentVersion && currentVersion === version
+                    ? green(`* ${version}`)
+                    : `  ${version}`
+            );
+            if (versions.length > this.maxListSize) {
+                const table = new Table().indent(indent);
+                const rowSize = Math.ceil(versions.length / maxCols);
+                const colSize = Math.min(versions.length, maxCols);
+                let versionIndex = 0;
+                for (let colIndex = 0; colIndex < colSize; colIndex++) {
+                    for (let rowIndex = 0; rowIndex < rowSize; rowIndex++) {
+                        if (!table[rowIndex]) {
+                            table[rowIndex] = [];
+                        }
+                        table[rowIndex][colIndex] = versions[versionIndex++];
+                    }
+                }
+                console.log(table.toString());
+            } else {
+                console.log(versions.map((version) => " ".repeat(indent) + version).join("\n"));
+            }
+        }
+    }
+    setLogger(logger) {
+        this.logger = logger;
+    }
+    getMain(defaultMain) {
+        const main = this.main ?? defaultMain;
+        return main ? `/${main}` : "";
+    }
 }

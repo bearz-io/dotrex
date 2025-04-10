@@ -5,10 +5,10 @@ export { number } from "./types/number.js";
 export { string } from "./types/string.js";
 export { OptionType } from "./deprecated.js";
 export {
-  InvalidTypeError,
-  UnexpectedArgumentAfterVariadicArgumentError,
-  UnexpectedRequiredArgumentError,
-  UnknownTypeError,
-  ValidationError,
+    InvalidTypeError,
+    UnexpectedArgumentAfterVariadicArgumentError,
+    UnexpectedRequiredArgumentError,
+    UnknownTypeError,
+    ValidationError,
 } from "./_errors.js";
 export { closestString } from "./_utils.js";

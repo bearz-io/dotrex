@@ -1,64 +1,64 @@
 {
-  "name": "@dotrex/rex-cli",
-  "version": "0.0.0-alpha.0",
-  "description": "The rex cli for running dotrex files tasks, jobs, and deployments.",
-  "keywords": [
-    "dotrex",
-    "cli",
-    "rex"
-  ],
-  "homepage": "bearz.io",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bearz-io/dotrex.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bearz-io/dotrex/discussions"
-  },
-  "module": "./esm/main.js",
-  "exports": {
-    ".": {
-      "import": "./esm/main.js"
+    "name": "@dotrex/rex-cli",
+    "version": "0.0.0-alpha.0",
+    "description": "The rex cli for running dotrex files tasks, jobs, and deployments.",
+    "keywords": [
+        "dotrex",
+        "cli",
+        "rex"
+    ],
+    "homepage": "bearz.io",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bearz-io/dotrex.git"
     },
-    "./main": {
-      "import": "./esm/main.js"
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/bearz-io/dotrex/discussions"
     },
-    "./main-node": {
-      "import": "./esm/main_node.js"
-    }
-  },
-  "scripts": {
-    "test": "node --test",
-    "test:bun": "bun test"
-  },
-  "authors": [
-    {
-      "name": "jolt9dev",
-      "email": "dev@jolt9.com"
-    }
-  ],
-  "engines": {
-    "node": ">=22"
-  },
-  "type": "module",
-  "bin": {
-    "rex": "./esm/main_node.js",
-    "dotrex": "./esm/main_node.js"
-  },
-  "dependencies": {
-    "@dotrex/runtime": "*",
-    "@dotrex/core": "*",
-    "@dotrex/command": "*",
-    "@dotrex/flags": "*",
-    "@bearz/process": "^0.1.0",
-    "@bearz/exec": "^0.1.0"
-  },
-  "devDependencies": {
-    "picocolors": "^1.0.0",
-    "@bearz/testing": "^0.0.0",
-    "@bearz/assert": "^0.1.0",
-    "@types/node": "^22.14.0"
-  },
-  "_generatedBy": "dnt@dev"
+    "module": "./esm/main.js",
+    "exports": {
+        ".": {
+            "import": "./esm/main.js"
+        },
+        "./main": {
+            "import": "./esm/main.js"
+        },
+        "./main-node": {
+            "import": "./esm/main_node.js"
+        }
+    },
+    "scripts": {
+        "test": "node --test",
+        "test:bun": "bun test"
+    },
+    "authors": [
+        {
+            "name": "jolt9dev",
+            "email": "dev@jolt9.com"
+        }
+    ],
+    "engines": {
+        "node": ">=22"
+    },
+    "type": "module",
+    "bin": {
+        "rex": "./esm/main_node.js",
+        "dotrex": "./esm/main_node.js"
+    },
+    "dependencies": {
+        "@dotrex/runtime": "*",
+        "@dotrex/core": "*",
+        "@dotrex/command": "*",
+        "@dotrex/flags": "*",
+        "@bearz/process": "^0.1.0",
+        "@bearz/exec": "^0.1.0"
+    },
+    "devDependencies": {
+        "picocolors": "^1.0.0",
+        "@bearz/testing": "^0.0.0",
+        "@bearz/assert": "^0.1.0",
+        "@types/node": "^22.14.0"
+    },
+    "_generatedBy": "dnt@dev"
 }

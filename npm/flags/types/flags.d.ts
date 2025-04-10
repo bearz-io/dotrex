@@ -1,8 +1,4 @@
-import type {
-  FlagOptions,
-  ParseFlagsContext,
-  ParseFlagsOptions,
-} from "./types.js";
+import type { FlagOptions, ParseFlagsContext, ParseFlagsOptions } from "./types.js";
 /**
  * Parse command line arguments.
  *
@@ -36,10 +32,10 @@ import type {
  * ```
  */
 export declare function parseFlags<
-  TFlags extends Record<string, unknown>,
-  TFlagOptions extends FlagOptions,
-  TFlagsResult extends ParseFlagsContext,
+    TFlags extends Record<string, unknown>,
+    TFlagOptions extends FlagOptions,
+    TFlagsResult extends ParseFlagsContext,
 >(
-  argsOrCtx: string[] | TFlagsResult,
-  opts?: ParseFlagsOptions<TFlagOptions>,
+    argsOrCtx: string[] | TFlagsResult,
+    opts?: ParseFlagsOptions<TFlagOptions>,
 ): TFlagsResult & ParseFlagsContext<TFlags, TFlagOptions>;

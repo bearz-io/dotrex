@@ -1,123 +1,123 @@
 {
-  "name": "@dotrex/command",
-  "version": "0.0.0-alpha.0",
-  "description": "A fork of cliffy/command for bun/node",
-  "keywords": [
-    "dotrex",
-    "cliffy",
-    "command"
-  ],
-  "homepage": "bearz.io",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bearz-io/dotrex.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bearz-io/dotrex/discussions"
-  },
-  "module": "./esm/mod.js",
-  "types": "./types/mod.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./types/mod.d.ts",
-        "default": "./esm/mod.js"
-      }
+    "name": "@dotrex/command",
+    "version": "0.0.0-alpha.0",
+    "description": "A fork of cliffy/command for bun/node",
+    "keywords": [
+        "dotrex",
+        "cliffy",
+        "command"
+    ],
+    "homepage": "bearz.io",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bearz-io/dotrex.git"
     },
-    "./completions": {
-      "import": {
-        "types": "./types/completions/mod.d.ts",
-        "default": "./esm/completions/mod.js"
-      }
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/bearz-io/dotrex/discussions"
     },
-    "./completions/bash": {
-      "import": {
-        "types": "./types/completions/bash.d.ts",
-        "default": "./esm/completions/bash.js"
-      }
+    "module": "./esm/mod.js",
+    "types": "./types/mod.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./types/mod.d.ts",
+                "default": "./esm/mod.js"
+            }
+        },
+        "./completions": {
+            "import": {
+                "types": "./types/completions/mod.d.ts",
+                "default": "./esm/completions/mod.js"
+            }
+        },
+        "./completions/bash": {
+            "import": {
+                "types": "./types/completions/bash.d.ts",
+                "default": "./esm/completions/bash.js"
+            }
+        },
+        "./completions/fish": {
+            "import": {
+                "types": "./types/completions/fish.d.ts",
+                "default": "./esm/completions/fish.js"
+            }
+        },
+        "./completions/zsh": {
+            "import": {
+                "types": "./types/completions/zsh.d.ts",
+                "default": "./esm/completions/zsh.js"
+            }
+        },
+        "./help": {
+            "import": {
+                "types": "./types/help/mod.d.ts",
+                "default": "./esm/help/mod.js"
+            }
+        },
+        "./upgrade": {
+            "import": {
+                "types": "./types/upgrade/mod.d.ts",
+                "default": "./esm/upgrade/mod.js"
+            }
+        },
+        "./upgrade/provider/deno-land": {
+            "import": {
+                "types": "./types/upgrade/provider/deno_land.d.ts",
+                "default": "./esm/upgrade/provider/deno_land.js"
+            }
+        },
+        "./upgrade/provider/github": {
+            "import": {
+                "types": "./types/upgrade/provider/github.d.ts",
+                "default": "./esm/upgrade/provider/github.js"
+            }
+        },
+        "./upgrade/provider/jsr": {
+            "import": {
+                "types": "./types/upgrade/provider/jsr.d.ts",
+                "default": "./esm/upgrade/provider/jsr.js"
+            }
+        },
+        "./upgrade/provider/nest-land": {
+            "import": {
+                "types": "./types/upgrade/provider/nest_land.d.ts",
+                "default": "./esm/upgrade/provider/nest_land.js"
+            }
+        },
+        "./upgrade/provider/npm": {
+            "import": {
+                "types": "./types/upgrade/provider/npm.d.ts",
+                "default": "./esm/upgrade/provider/npm.js"
+            }
+        }
     },
-    "./completions/fish": {
-      "import": {
-        "types": "./types/completions/fish.d.ts",
-        "default": "./esm/completions/fish.js"
-      }
+    "scripts": {
+        "test": "node --test",
+        "test:bun": "bun test"
     },
-    "./completions/zsh": {
-      "import": {
-        "types": "./types/completions/zsh.d.ts",
-        "default": "./esm/completions/zsh.js"
-      }
+    "authors": [
+        {
+            "name": "jolt9dev",
+            "email": "dev@jolt9.com"
+        }
+    ],
+    "engines": {
+        "node": ">=22"
     },
-    "./help": {
-      "import": {
-        "types": "./types/help/mod.d.ts",
-        "default": "./esm/help/mod.js"
-      }
+    "type": "module",
+    "dependencies": {
+        "@bearz/env": "^0.1.3",
+        "@bearz/ansi": "^0.1.0",
+        "@bearz/process": "^0.1.0",
+        "@dotrex/flags": "*",
+        "@dotrex/table": "*"
     },
-    "./upgrade": {
-      "import": {
-        "types": "./types/upgrade/mod.d.ts",
-        "default": "./esm/upgrade/mod.js"
-      }
+    "devDependencies": {
+        "picocolors": "^1.0.0",
+        "@bearz/testing": "^0.0.0",
+        "@bearz/assert": "^0.1.0",
+        "@types/node": "^22.14.0"
     },
-    "./upgrade/provider/deno-land": {
-      "import": {
-        "types": "./types/upgrade/provider/deno_land.d.ts",
-        "default": "./esm/upgrade/provider/deno_land.js"
-      }
-    },
-    "./upgrade/provider/github": {
-      "import": {
-        "types": "./types/upgrade/provider/github.d.ts",
-        "default": "./esm/upgrade/provider/github.js"
-      }
-    },
-    "./upgrade/provider/jsr": {
-      "import": {
-        "types": "./types/upgrade/provider/jsr.d.ts",
-        "default": "./esm/upgrade/provider/jsr.js"
-      }
-    },
-    "./upgrade/provider/nest-land": {
-      "import": {
-        "types": "./types/upgrade/provider/nest_land.d.ts",
-        "default": "./esm/upgrade/provider/nest_land.js"
-      }
-    },
-    "./upgrade/provider/npm": {
-      "import": {
-        "types": "./types/upgrade/provider/npm.d.ts",
-        "default": "./esm/upgrade/provider/npm.js"
-      }
-    }
-  },
-  "scripts": {
-    "test": "node --test",
-    "test:bun": "bun test"
-  },
-  "authors": [
-    {
-      "name": "jolt9dev",
-      "email": "dev@jolt9.com"
-    }
-  ],
-  "engines": {
-    "node": ">=22"
-  },
-  "type": "module",
-  "dependencies": {
-    "@bearz/env": "^0.1.3",
-    "@bearz/ansi": "^0.1.0",
-    "@bearz/process": "^0.1.0",
-    "@dotrex/flags": "*",
-    "@dotrex/table": "*"
-  },
-  "devDependencies": {
-    "picocolors": "^1.0.0",
-    "@bearz/testing": "^0.0.0",
-    "@bearz/assert": "^0.1.0",
-    "@types/node": "^22.14.0"
-  },
-  "_generatedBy": "dnt@dev"
+    "_generatedBy": "dnt@dev"
 }

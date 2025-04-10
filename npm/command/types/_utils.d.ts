@@ -1,20 +1,16 @@
 import type { Command } from "./command.js";
 import type { Argument } from "./types.js";
 export declare function getFlag(name: string): string;
-export declare function didYouMean(
-  message: string,
-  type: string,
-  types: Array<string>,
-): string;
+export declare function didYouMean(message: string, type: string, types: Array<string>): string;
 export declare function didYouMeanCommand(
-  command: string,
-  commands: Array<Command>,
-  excludes?: Array<string>,
+    command: string,
+    commands: Array<Command>,
+    excludes?: Array<string>,
 ): string;
 interface SplitArgumentsResult {
-  flags: string[];
-  typeDefinition: string;
-  equalsSign: boolean;
+    flags: string[];
+    typeDefinition: string;
+    equalsSign: boolean;
 }
 /**
  * Split options and arguments.
@@ -36,20 +32,17 @@ export declare function splitArguments(args: string): SplitArgumentsResult;
  * @param argsDefinition Arguments definition: `<color1:string> <color2:string>`
  */
 export declare function parseArgumentsDefinition<T extends boolean>(
-  argsDefinition: string,
-  validate: boolean,
-  all: true,
+    argsDefinition: string,
+    validate: boolean,
+    all: true,
 ): Array<Argument | string>;
 export declare function parseArgumentsDefinition<T extends boolean>(
-  argsDefinition: string,
-  validate?: boolean,
-  all?: false,
+    argsDefinition: string,
+    validate?: boolean,
+    all?: false,
 ): Array<Argument>;
 export declare function dedent(str: string): string;
-export declare function getDescription(
-  description: string,
-  short?: boolean,
-): string;
+export declare function getDescription(description: string, short?: boolean): string;
 /** Convert underscore case string to camel case. */
 export declare function underscoreToCamelCase(str: string): string;
 export {};

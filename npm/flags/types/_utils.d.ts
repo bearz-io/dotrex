@@ -1,21 +1,21 @@
 import type { FlagOptions } from "./types.js";
 /** Options for {@linkcode closestString}. */
 export interface ClosestStringOptions {
-  /**
-   * Whether the distance should include case.
-   *
-   * @default {false}
-   */
-  caseSensitive?: boolean;
-  /**
-   * A custom comparison function to use for comparing strings.
-   *
-   * @param a The first string for comparison.
-   * @param b The second string for comparison.
-   * @returns The distance between the two strings.
-   * @default {levenshteinDistance}
-   */
-  compareFn?: (a: string, b: string) => number;
+    /**
+     * Whether the distance should include case.
+     *
+     * @default {false}
+     */
+    caseSensitive?: boolean;
+    /**
+     * A custom comparison function to use for comparing strings.
+     *
+     * @param a The first string for comparison.
+     * @param b The second string for comparison.
+     * @returns The distance between the two strings.
+     * @default {levenshteinDistance}
+     */
+    compareFn?: (a: string, b: string) => number;
 }
 /**
  * Finds the most similar string from an array of strings.
@@ -40,9 +40,9 @@ export interface ClosestStringOptions {
  * @returns The closest string
  */
 export declare function closestString(
-  givenWord: string,
-  possibleWords: ReadonlyArray<string>,
-  options?: ClosestStringOptions,
+    givenWord: string,
+    possibleWords: ReadonlyArray<string>,
+    options?: ClosestStringOptions,
 ): string;
 /**
  * Calculates the
@@ -75,25 +75,15 @@ export declare function paramCaseToCamelCase(str: string): string;
  * @param name  Name of the option.
  */
 export declare function getOption<O extends FlagOptions>(
-  flags: Array<O>,
-  name: string,
+    flags: Array<O>,
+    name: string,
 ): O | undefined;
-export declare function didYouMeanOption(
-  option: string,
-  options: Array<FlagOptions>,
-): string;
-export declare function didYouMeanType(
-  type: string,
-  types: Array<string>,
-): string;
-export declare function didYouMean(
-  message: string,
-  type: string,
-  types: Array<string>,
-): string;
+export declare function didYouMeanOption(option: string, options: Array<FlagOptions>): string;
+export declare function didYouMeanType(type: string, types: Array<string>): string;
+export declare function didYouMean(message: string, type: string, types: Array<string>): string;
 export declare function getFlag(name: string): string;
 export declare function matchWildCardOptions(
-  name: string,
-  flags: Array<FlagOptions>,
+    name: string,
+    flags: Array<FlagOptions>,
 ): FlagOptions | undefined;
 export declare function getDefaultValue(option: FlagOptions): unknown;

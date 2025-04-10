@@ -1,22 +1,22 @@
 import type { Logger } from "./logger.js";
 export interface Versions {
-  latest: string;
-  versions: Array<string>;
+    latest: string;
+    versions: Array<string>;
 }
 /** Shared provider options. */
 export interface ProviderOptions {
-  main?: string;
-  logger?: Logger;
+    main?: string;
+    logger?: Logger;
 }
 /** Provider upgrade options. */
 export interface ProviderUpgradeOptions {
-  name: string;
-  to: string;
-  main?: string;
-  args?: Array<string>;
-  from?: string;
-  force?: boolean;
-  verbose?: boolean;
+    name: string;
+    to: string;
+    main?: string;
+    args?: Array<string>;
+    from?: string;
+    force?: boolean;
+    verbose?: boolean;
 }
 /**
  * Upgrade provider.
@@ -43,31 +43,27 @@ export interface ProviderUpgradeOptions {
  * ```
  */
 export declare abstract class Provider {
-  abstract readonly name: string;
-  protected readonly main?: string;
-  protected readonly maxListSize: number;
-  protected logger: Logger;
-  private maxCols;
-  protected constructor({ main, logger }?: ProviderOptions);
-  abstract getVersions(name: string): Promise<Versions>;
-  abstract getRepositoryUrl(name: string, version?: string): string;
-  abstract getRegistryUrl(name: string, version: string): string;
-  upgrade?(options: ProviderUpgradeOptions): Promise<void>;
-  getSpecifier(name: string, version: string, defaultMain?: string): string;
-  isOutdated(
-    name: string,
-    currentVersion: string,
-    targetVersion: string,
-  ): Promise<boolean>;
-  listVersions(name: string, currentVersion?: string): Promise<void>;
-  protected printVersions(
-    versions: Array<string>,
-    currentVersion?: string,
-    { maxCols, indent }?: {
-      maxCols?: number;
-      indent?: number;
-    },
-  ): void;
-  setLogger(logger: Logger): void;
-  private getMain;
+    abstract readonly name: string;
+    protected readonly main?: string;
+    protected readonly maxListSize: number;
+    protected logger: Logger;
+    private maxCols;
+    protected constructor({ main, logger }?: ProviderOptions);
+    abstract getVersions(name: string): Promise<Versions>;
+    abstract getRepositoryUrl(name: string, version?: string): string;
+    abstract getRegistryUrl(name: string, version: string): string;
+    upgrade?(options: ProviderUpgradeOptions): Promise<void>;
+    getSpecifier(name: string, version: string, defaultMain?: string): string;
+    isOutdated(name: string, currentVersion: string, targetVersion: string): Promise<boolean>;
+    listVersions(name: string, currentVersion?: string): Promise<void>;
+    protected printVersions(
+        versions: Array<string>,
+        currentVersion?: string,
+        { maxCols, indent }?: {
+            maxCols?: number;
+            indent?: number;
+        },
+    ): void;
+    setLogger(logger: Logger): void;
+    private getMain;
 }
