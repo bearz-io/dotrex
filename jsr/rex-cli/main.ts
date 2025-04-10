@@ -267,38 +267,7 @@ import { logLevels, parseLogLevel } from "./cmds/types.ts";
 import { onExit } from "./globals.ts";
 import { args } from "@bearz/process/args";
 import { exit } from "@bearz/process/exit";
-import { globals } from "./globals.ts";
-import { cmd } from "@bearz/exec";
-import { get, joinPath, set } from "@bearz/env";
-
-if (!globals.Deno && !globals.Bun) {
-    if (!globals.process.execArgv.includes("--experimental-transform-types")) {
-        // Get the node binary
-
-        if (!get("NODE_PATH")) {
-            const o = await cmd("npm", ["root", "-g"]).output();
-            let r = o.text().trim();
-
-            const h = get("HOME") ?? get("USERPROFILE");
-            if (h) {
-                r = joinPath([r, `${h}/.node_modules`, `${h}/.local/node_modules`]);
-            }
-
-            set("NODE_PATH", r);
-        }
-
-        const splat = [
-            "--experimental-transform-types",
-            "--no-warnings",
-            import.meta.filename!,
-            ...args,
-        ];
-        await cmd("node", splat).run();
-        exit(0);
-    } else {
-        console.log("NODE_PATH", get("NODE_PATH"));
-    }
-}
+import { get } from "@bearz/env";
 
 const app = new Command()
     .name("rex")
@@ -361,6 +330,6 @@ special type of job that has has before and after tasks and the primary task is 
 // todo: add pwsh completion
 // https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/register-argumentcompleter?view=powershell-7.4&viewFallbackFrom=powershell-7.1&WT.mc_id=modinfra-35653-salean
 
-if (import.meta.main) {
+if (import.meta.main || get("NODE_CALL") === "1") {
     await app.parse(args.slice());
 }

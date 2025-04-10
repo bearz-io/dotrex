@@ -13,21 +13,21 @@ import { ansiRegexSource, strLength } from "./_utils.js";
  * @param content The content from which the string should be consumed.
  */
 export function consumeWords(length, content) {
-    let consumed = "";
-    const words = content.split("\n")[0]?.split(/ /g);
-    for (let i = 0; i < words.length; i++) {
-        const word = words[i];
-        // consume minimum one word
-        if (consumed) {
-            const nextLength = strLength(word);
-            const consumedLength = strLength(consumed);
-            if (consumedLength + nextLength >= length) {
-                break;
-            }
-        }
-        consumed += (i > 0 ? " " : "") + word;
+  let consumed = "";
+  const words = content.split("\n")[0]?.split(/ /g);
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    // consume minimum one word
+    if (consumed) {
+      const nextLength = strLength(word);
+      const consumedLength = strLength(consumed);
+      if (consumedLength + nextLength >= length) {
+        break;
+      }
     }
-    return consumed;
+    consumed += (i > 0 ? " " : "") + word;
+  }
+  return consumed;
 }
 /**
  * Consumes the maximum amount of chars from a string which is not longer than
@@ -44,21 +44,23 @@ export function consumeWords(length, content) {
  * @param content The content from which the string should be consumed.
  */
 export function consumeChars(length, content) {
-    let consumed = "";
-    const chars = [
-        ...content.split("\n")[0].matchAll(new RegExp(`(?:${ansiRegexSource})+|.`, "gu")),
-    ]
-        .map(([match]) => match);
-    for (const char of chars) {
-        // consume minimum one char
-        if (consumed) {
-            const nextLength = strLength(char);
-            const consumedLength = strLength(consumed);
-            if (consumedLength + nextLength > length) {
-                break;
-            }
-        }
-        consumed += char;
+  let consumed = "";
+  const chars = [
+    ...content.split("\n")[0].matchAll(
+      new RegExp(`(?:${ansiRegexSource})+|.`, "gu"),
+    ),
+  ]
+    .map(([match]) => match);
+  for (const char of chars) {
+    // consume minimum one char
+    if (consumed) {
+      const nextLength = strLength(char);
+      const consumedLength = strLength(consumed);
+      if (consumedLength + nextLength > length) {
+        break;
+      }
     }
-    return consumed;
+    consumed += char;
+  }
+  return consumed;
 }

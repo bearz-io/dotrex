@@ -1,10 +1,11 @@
 import { Command } from "../command.js";
 import type { Provider, Versions } from "./provider.js";
 import { type RuntimeOptions, type RuntimeOptionsMap } from "./upgrade.js";
-export interface UpgradeCommandOptions<TProvider extends Provider = Provider> extends RuntimeOptions {
-    provider: TProvider | Array<TProvider>;
-    runtime?: RuntimeOptionsMap;
-    spinner?: boolean;
+export interface UpgradeCommandOptions<TProvider extends Provider = Provider>
+  extends RuntimeOptions {
+  provider: TProvider | Array<TProvider>;
+  runtime?: RuntimeOptionsMap;
+  spinner?: boolean;
 }
 /**
  * The `UpgradeCommand` adds an upgrade functionality to the cli to be able to
@@ -42,11 +43,13 @@ export interface UpgradeCommandOptions<TProvider extends Provider = Provider> ex
  * ```
  */
 export declare class UpgradeCommand extends Command {
-    private readonly providers;
-    constructor({ provider, spinner: withSpinner, ...options }: UpgradeCommandOptions);
-    getAllVersions(): Promise<Array<string>>;
-    getLatestVersion(): Promise<string>;
-    getVersions(): Promise<Versions>;
-    private getProvider;
-    private getProviderNames;
+  private readonly providers;
+  constructor(
+    { provider, spinner: withSpinner, ...options }: UpgradeCommandOptions,
+  );
+  getAllVersions(): Promise<Array<string>>;
+  getLatestVersion(): Promise<string>;
+  getVersions(): Promise<Versions>;
+  private getProvider;
+  private getProviderNames;
 }

@@ -7,4 +7,10 @@ import type { FlagOptions } from "./types.js";
  * @param opts    Parse options.
  * @param options Option name mappings: propertyName -> option
  */
-export declare function validateFlags<TOptions extends FlagOptions = FlagOptions>(ctx: ParseFlagsContext<Record<string, unknown>>, opts: ParseFlagsOptions<TOptions>, options?: Map<string, FlagOptions>): void;
+export declare function validateFlags<
+  TOptions extends FlagOptions = FlagOptions,
+>(
+  ctx: ParseFlagsContext<Record<string, unknown>>,
+  opts: ParseFlagsOptions<TOptions>,
+  options?: Map<string, FlagOptions>,
+): void;

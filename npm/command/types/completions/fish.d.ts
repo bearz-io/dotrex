@@ -1,8 +1,8 @@
 import { Command } from "../command.js";
 /** Generates fish completions script. */
 export declare class FishCompletionsCommand extends Command<void, void, {
-    name: string;
+  name: string;
 }> {
-    #private;
-    constructor(cmd?: Command);
+  #private;
+  constructor(cmd?: Command);
 }

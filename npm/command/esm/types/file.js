@@ -6,7 +6,7 @@ import { StringType } from "./string.js";
 // }
 /** Integer type. */
 export class FileType extends StringType {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 }

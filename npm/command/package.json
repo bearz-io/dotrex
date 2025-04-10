@@ -1,6 +1,6 @@
 {
   "name": "@dotrex/command",
-  "version": "1.0.0-rc.7",
+  "version": "0.0.0-alpha.0",
   "description": "A fork of cliffy/command for bun/node",
   "keywords": [
     "dotrex",

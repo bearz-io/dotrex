@@ -42,6 +42,7 @@ interface DenoJson {
         keywords?: string[];
         dependencies: string[];
         devDependencies: string[];
+        bin?: Record<string, string>;
     };
 }
 
@@ -148,6 +149,7 @@ for (const project of projects) {
             type: "module",
             dependencies: deps,
             devDependencies: devDeps,
+            bin: denoJson?.dnt?.bin,
         },
         async postBuild() {
             // steps to run after building and before running the tests
@@ -181,3 +183,8 @@ for (const project of projects) {
 
     //await import("./fmt-npm.ts");
 }
+
+let content2 = Deno.readTextFileSync(`${pwd}/npm/rex-cli/esm/main_node.js`);
+content2 = `#!/usr/bin/env node
+${content2}`;
+Deno.writeTextFileSync(`${pwd}/npm/rex-cli/esm/main_node.js`, content2);

@@ -42,89 +42,119 @@ import { upgrade } from "./upgrade.js";
  * ```
  */
 export class UpgradeCommand extends Command {
-    providers;
-    constructor({ provider, spinner: withSpinner = true, ...options }) {
-        super();
-        this.providers = Array.isArray(provider) ? provider : [provider];
-        if (!this.providers.length) {
-            throw new Error(`No upgrade provider defined!`);
-        }
-        this
-            .description(() => `Upgrade ${this.getMainCommand().getName()} executable to latest or given version.`)
-            .noGlobals()
-            .type("provider", new EnumType(this.getProviderNames()))
-            .option("-r, --registry <name:provider>", `The registry name from which to upgrade.`, {
-            default: this.getProvider().name,
-            hidden: this.providers.length < 2,
-            value: (registry) => this.getProvider(registry),
-        })
-            .option("-l, --list-versions", "Show available versions.", {
-            action: async ({ registry }) => {
-                await registry.listVersions(this.getMainCommand().getName(), this.getVersion());
-                exit(0);
-            },
-        })
-            .option("--version <version:string:version>", "The version to upgrade to.", { default: "latest" })
-            .option("-f, --force", "Replace current installation even if not out-of-date.")
-            .option("-v, --verbose", "Log verbose output.")
-            .option("--no-spinner", "Disable spinner.", {
-            hidden: !withSpinner,
-        })
-            .complete("version", () => this.getAllVersions())
-            .action(async ({ registry: provider, version, force, verbose, spinner: spinnerEnabled, }) => {
-            const name = this.getMainCommand().getName();
-            const currentVersion = this.getVersion();
-            const spinner = withSpinner && spinnerEnabled
-                ? new Spinner({
-                    message: brightBlue(`Upgrading ${bold(name)} from version ${bold(currentVersion ?? "")} to ${bold(version)}...`),
-                })
-                : undefined;
-            const logger = createLogger({ spinner, verbose });
-            spinner?.start();
-            provider.setLogger(logger);
-            try {
-                await upgrade({
-                    name,
-                    to: version,
-                    from: currentVersion,
-                    force,
-                    provider,
-                    verbose,
-                    logger,
-                    ...options,
-                });
-            }
-            catch (error) {
-                logger.error(!verbose && error instanceof Error ? error.message : error);
-                spinner?.stop();
-                exit(1);
-            }
-            finally {
-                spinner?.stop();
-            }
-        });
+  providers;
+  constructor({ provider, spinner: withSpinner = true, ...options }) {
+    super();
+    this.providers = Array.isArray(provider) ? provider : [provider];
+    if (!this.providers.length) {
+      throw new Error(`No upgrade provider defined!`);
     }
-    async getAllVersions() {
-        const { versions } = await this.getVersions();
-        return versions;
+    this
+      .description(() =>
+        `Upgrade ${this.getMainCommand().getName()} executable to latest or given version.`
+      )
+      .noGlobals()
+      .type("provider", new EnumType(this.getProviderNames()))
+      .option(
+        "-r, --registry <name:provider>",
+        `The registry name from which to upgrade.`,
+        {
+          default: this.getProvider().name,
+          hidden: this.providers.length < 2,
+          value: (registry) => this.getProvider(registry),
+        },
+      )
+      .option("-l, --list-versions", "Show available versions.", {
+        action: async ({ registry }) => {
+          await registry.listVersions(
+            this.getMainCommand().getName(),
+            this.getVersion(),
+          );
+          exit(0);
+        },
+      })
+      .option(
+        "--version <version:string:version>",
+        "The version to upgrade to.",
+        { default: "latest" },
+      )
+      .option(
+        "-f, --force",
+        "Replace current installation even if not out-of-date.",
+      )
+      .option("-v, --verbose", "Log verbose output.")
+      .option("--no-spinner", "Disable spinner.", {
+        hidden: !withSpinner,
+      })
+      .complete("version", () => this.getAllVersions())
+      .action(
+        async (
+          {
+            registry: provider,
+            version,
+            force,
+            verbose,
+            spinner: spinnerEnabled,
+          },
+        ) => {
+          const name = this.getMainCommand().getName();
+          const currentVersion = this.getVersion();
+          const spinner = withSpinner && spinnerEnabled
+            ? new Spinner({
+              message: brightBlue(
+                `Upgrading ${bold(name)} from version ${
+                  bold(currentVersion ?? "")
+                } to ${bold(version)}...`,
+              ),
+            })
+            : undefined;
+          const logger = createLogger({ spinner, verbose });
+          spinner?.start();
+          provider.setLogger(logger);
+          try {
+            await upgrade({
+              name,
+              to: version,
+              from: currentVersion,
+              force,
+              provider,
+              verbose,
+              logger,
+              ...options,
+            });
+          } catch (error) {
+            logger.error(
+              !verbose && error instanceof Error ? error.message : error,
+            );
+            spinner?.stop();
+            exit(1);
+          } finally {
+            spinner?.stop();
+          }
+        },
+      );
+  }
+  async getAllVersions() {
+    const { versions } = await this.getVersions();
+    return versions;
+  }
+  async getLatestVersion() {
+    const { latest } = await this.getVersions();
+    return latest;
+  }
+  getVersions() {
+    return this.getProvider().getVersions(this.getMainCommand().getName());
+  }
+  getProvider(name) {
+    const provider = name
+      ? this.providers.find((provider) => provider.name === name)
+      : this.providers[0];
+    if (!provider) {
+      throw new ValidationError(`Unknown provider "${name}"`);
     }
-    async getLatestVersion() {
-        const { latest } = await this.getVersions();
-        return latest;
-    }
-    getVersions() {
-        return this.getProvider().getVersions(this.getMainCommand().getName());
-    }
-    getProvider(name) {
-        const provider = name
-            ? this.providers.find((provider) => provider.name === name)
-            : this.providers[0];
-        if (!provider) {
-            throw new ValidationError(`Unknown provider "${name}"`);
-        }
-        return provider;
-    }
-    getProviderNames() {
-        return this.providers.map((provider) => provider.name);
-    }
+    return provider;
+  }
+  getProviderNames() {
+    return this.providers.map((provider) => provider.name);
+  }
 }

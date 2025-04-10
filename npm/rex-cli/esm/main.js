@@ -253,6 +253,7 @@
  * @module
  */
 import "./_dnt.polyfills.js";
+import "./_dnt.polyfills.js";
 import { Command } from "@dotrex/command";
 import { CompletionsCommand } from "@dotrex/command/completions";
 import { taskCommand } from "./cmds/task.js";
@@ -268,65 +269,57 @@ import { logLevels, parseLogLevel } from "./cmds/types.js";
 import { onExit } from "./globals.js";
 import { args } from "@bearz/process/args";
 import { exit } from "@bearz/process/exit";
-import { globals } from "./globals.js";
-import { cmd } from "@bearz/exec";
-import { get, joinPath, set } from "@bearz/env";
-if (!globals.Deno && !globals.Bun) {
-    if (!globals.process.execArgv.includes("--experimental-transform-types")) {
-        // Get the node binary
-        if (!get("NODE_PATH")) {
-            const o = await cmd("npm", ["root", "-g"]).output();
-            let r = o.text().trim();
-            const h = get("HOME") ?? get("USERPROFILE");
-            if (h) {
-                r = joinPath([r, `${h}/.node_modules`, `${h}/.local/node_modules`]);
-            }
-            set("NODE_PATH", r);
-        }
-        const splat = [
-            "--experimental-transform-types",
-            "--no-warnings",
-            import.meta.filename,
-            ...args,
-        ];
-        await cmd("node", splat).run();
-        exit(0);
-    }
-    else {
-        console.log("NODE_PATH", get("NODE_PATH"));
-    }
-}
+import { get } from "@bearz/env";
 const app = new Command()
-    .name("rex")
-    .description(`Rex is a developer's sidekick. Rex helps you automate tasks and manage your project.
+  .name("rex")
+  .description(
+    `Rex is a developer's sidekick. Rex helps you automate tasks and manage your project.
 
 Rex can run tasks, jobs, and deployments from a rexfile.ts. Tasks are a unit of work and can
 depend on other tasks. Jobs are a collection of tasks that run in order. Deployments are a
 special type of job that has has before and after tasks and the primary task is the deployment.
-        `)
-    .version(VERSION)
-    .arguments("[target:string[]:targets] [...args]")
-    .complete("targets", async () => {
+        `,
+  )
+  .version(VERSION)
+  .arguments("[target:string[]:targets] [...args]")
+  .complete("targets", async () => {
     return await getAll();
-})
-    .type("loglevel", logLevels)
-    .option("-f, --file <file:file>", "The rexfile to run")
-    .option("-v --log-level <log-level:loglevel>", "Enable debug mode", { default: "info" })
-    .option("-t, --timeout <timeout:number>", "Set the timeout in minutes.")
-    .option("-c --context <context:string>", "The context (environment) name. Defaults to 'default'", { default: "default" })
-    .option("-e --env <env:string>", "Sets an environment variable", { collect: true })
-    .option("--env-file, --ef <env-file:file>", "Sets an environment variable from a file", {
+  })
+  .type("loglevel", logLevels)
+  .option("-f, --file <file:file>", "The rexfile to run")
+  .option("-v --log-level <log-level:loglevel>", "Enable debug mode", {
+    default: "info",
+  })
+  .option("-t, --timeout <timeout:number>", "Set the timeout in minutes.")
+  .option(
+    "-c --context <context:string>",
+    "The context (environment) name. Defaults to 'default'",
+    { default: "default" },
+  )
+  .option("-e --env <env:string>", "Sets an environment variable", {
     collect: true,
-})
-    .stopEarly()
-    .action(async ({ file, logLevel, timeout, env, envFile, context }, targets, ...args) => {
-    const runner = new Runner();
-    const controller = new AbortController();
-    onExit(() => {
+  })
+  .option(
+    "--env-file, --ef <env-file:file>",
+    "Sets an environment variable from a file",
+    {
+      collect: true,
+    },
+  )
+  .stopEarly()
+  .action(
+    async (
+      { file, logLevel, timeout, env, envFile, context },
+      targets,
+      ...args
+    ) => {
+      const runner = new Runner();
+      const controller = new AbortController();
+      onExit(() => {
         controller.abort();
         exit(2);
-    });
-    const options = {
+      });
+      const options = {
         file: file,
         targets: targets ?? ["default"],
         command: "run",
@@ -337,18 +330,25 @@ special type of job that has has before and after tasks and the primary task is 
         context: context,
         signal: controller.signal,
         args: args,
-    };
-    await runner.run(options);
-})
-    .command("task", taskCommand)
-    .command("job", jobCommand)
-    .command("list", listCommand)
-    .command("deploy", deployCommand)
-    .command("rollback", rollbackCommand)
-    .command("destroy", destroyCommand)
-    .command("completions", new CompletionsCommand());
+      };
+      await runner.run(options);
+    },
+  )
+  .command("task", taskCommand)
+  .command("job", jobCommand)
+  .command("list", listCommand)
+  .command("deploy", deployCommand)
+  .command("rollback", rollbackCommand)
+  .command("destroy", destroyCommand)
+  .command("completions", new CompletionsCommand());
 // todo: add pwsh completion
 // https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/register-argumentcompleter?view=powershell-7.4&viewFallbackFrom=powershell-7.1&WT.mc_id=modinfra-35653-salean
-if ((import.meta.url === ("file:///" + process.argv[1].replace(/\\/g, "/")).replace(/\/{3,}/, "///"))) {
-    await app.parse(args.slice());
+if (
+  (import.meta.url ===
+    ("file:///" + process.argv[1].replace(/\\/g, "/")).replace(
+      /\/{3,}/,
+      "///",
+    )) || get("NODE_CALL") === "1"
+) {
+  await app.parse(args.slice());
 }

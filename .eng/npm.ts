@@ -1,6 +1,6 @@
 import { join, resolve } from "jsr:@bearz/path";
-import { cmd, setLogger } from "jsr:@bearz/exec"
-import { readDirSync } from "jsr:@bearz/fs"
+import { cmd, setLogger } from "jsr:@bearz/exec";
+import { readDirSync } from "jsr:@bearz/fs";
 
 setLogger((f, a) => {
     console.log(f, a);
@@ -10,7 +10,7 @@ const args = Deno.args;
 const __dirname = import.meta.dirname;
 
 if (args.includes("publish")) {
-    for (const child of readDirSync(join(__dirname!,"..", "npm"))) {
+    for (const child of readDirSync(join(__dirname!, "..", "npm"))) {
         if (child.name === "node_modules") {
             continue;
         }
@@ -34,15 +34,11 @@ if (args.includes("publish")) {
                 Deno.exit(o.code);
             }
         }
-       
-    }   
+    }
 }
 
-
-
-
 if (args.includes("audit")) {
-    for (const child of readDirSync(join(__dirname!,"..", "npm"))) {
+    for (const child of readDirSync(join(__dirname!, "..", "npm"))) {
         if (child.name === "node_modules") {
             continue;
         }
@@ -56,14 +52,11 @@ if (args.includes("audit")) {
             console.error("Error running npm publish");
             Deno.exit(o.code);
         }
-       
-    }   
+    }
 }
 
-
-
 if (args.includes("test")) {
-    for (const child of readDirSync(join(__dirname!,"..", "npm"))) {
+    for (const child of readDirSync(join(__dirname!, "..", "npm"))) {
         if (child.name === "node_modules") {
             continue;
         }
@@ -79,8 +72,5 @@ if (args.includes("test")) {
             console.error("Error running npm test");
             Deno.exit(o.code);
         }
-       
-    }   
+    }
 }
-
-

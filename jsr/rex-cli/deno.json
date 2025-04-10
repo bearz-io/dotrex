@@ -2,7 +2,9 @@
     "name": "@dotrex/rex-cli",
     "version": "0.0.0-alpha.0",
     "exports": {
-        ".": "./main.ts"
+        ".": "./main.ts",
+        "./main": "./main.ts",
+        "./main-node": "./main_node.ts"
     },
 
     "dnt": {
@@ -26,8 +28,8 @@
             "@types/node"
         ],
         "bin": {
-            "rex": "./esm/main.js",
-            "dotrex": "./esm/main.js"
+            "rex": "./esm/main_node.js",
+            "dotrex": "./esm/main_node.js"
         }
     }
 }

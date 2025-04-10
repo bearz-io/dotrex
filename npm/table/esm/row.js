@@ -16,67 +16,69 @@ import { Cell } from "./cell.js";
  * ```
  */
 export class Row extends Array {
-    options = {};
-    /**
-     * Create a new row. If cells is a row, all cells and options of the row will
-     * be copied to the new row.
-     *
-     * @param cells Cells or row.
-     */
-    static from(cells) {
-        const row = new this(...cells);
-        if (cells instanceof Row) {
-            row.options = { ...cells.options };
-        }
-        return row;
+  options = {};
+  /**
+   * Create a new row. If cells is a row, all cells and options of the row will
+   * be copied to the new row.
+   *
+   * @param cells Cells or row.
+   */
+  static from(cells) {
+    const row = new this(...cells);
+    if (cells instanceof Row) {
+      row.options = { ...cells.options };
     }
-    /** Clone row recursively with all options. */
-    clone() {
-        const row = new Row(...this.map((cell) => cell instanceof Cell ? cell.clone() : cell));
-        row.options = { ...this.options };
-        return row;
+    return row;
+  }
+  /** Clone row recursively with all options. */
+  clone() {
+    const row = new Row(
+      ...this.map((cell) => cell instanceof Cell ? cell.clone() : cell),
+    );
+    row.options = { ...this.options };
+    return row;
+  }
+  /**
+   * Setter:
+   */
+  /**
+   * Enable/disable cell border.
+   *
+   * @param enable    Enable/disable cell border.
+   * @param override  Override existing value.
+   */
+  border(enable = true, override = true) {
+    if (override || typeof this.options.border === "undefined") {
+      this.options.border = enable;
     }
-    /**
-     * Setter:
-     */
-    /**
-     * Enable/disable cell border.
-     *
-     * @param enable    Enable/disable cell border.
-     * @param override  Override existing value.
-     */
-    border(enable = true, override = true) {
-        if (override || typeof this.options.border === "undefined") {
-            this.options.border = enable;
-        }
-        return this;
+    return this;
+  }
+  /**
+   * Align row content.
+   *
+   * @param direction Align direction.
+   * @param override  Override existing value.
+   */
+  align(direction, override = true) {
+    if (override || typeof this.options.align === "undefined") {
+      this.options.align = direction;
     }
-    /**
-     * Align row content.
-     *
-     * @param direction Align direction.
-     * @param override  Override existing value.
-     */
-    align(direction, override = true) {
-        if (override || typeof this.options.align === "undefined") {
-            this.options.align = direction;
-        }
-        return this;
-    }
-    /**
-     * Getter:
-     */
-    /** Check if row has border. */
-    getBorder() {
-        return this.options.border === true;
-    }
-    /** Check if row or any child cell has border. */
-    hasBorder() {
-        return this.getBorder() ||
-            this.some((cell) => cell instanceof Cell && cell.getBorder());
-    }
-    /** Get row alignment. */
-    getAlign() {
-        return this.options.align ?? "left";
-    }
+    return this;
+  }
+  /**
+   * Getter:
+   */
+  /** Check if row has border. */
+  getBorder() {
+    return this.options.border === true;
+  }
+  /** Check if row or any child cell has border. */
+  hasBorder() {
+    return this.getBorder() ||
+      this.some((cell) => cell instanceof Cell && cell.getBorder());
+  }
+  /** Get row alignment. */
+  getAlign() {
+    return this.options.align ?? "left";
+  }
 }

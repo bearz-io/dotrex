@@ -20,6 +20,12 @@
   "exports": {
     ".": {
       "import": "./esm/main.js"
+    },
+    "./main": {
+      "import": "./esm/main.js"
+    },
+    "./main-node": {
+      "import": "./esm/main_node.js"
     }
   },
   "scripts": {
@@ -36,6 +42,10 @@
     "node": ">=22"
   },
   "type": "module",
+  "bin": {
+    "rex": "./esm/main_node.js",
+    "dotrex": "./esm/main_node.js"
+  },
   "dependencies": {
     "@dotrex/runtime": "workspace:*",
     "@dotrex/core": "workspace:*",
