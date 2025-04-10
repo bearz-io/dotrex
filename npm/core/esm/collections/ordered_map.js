@@ -1,82 +1,80 @@
 import { none, some } from "@bearz/option";
 export class OrderedMap extends Map {
-    #keys = [];
-    // @ts-ignore TS2552
-    keys() {
-        return this.#keys[Symbol.iterator]();
+  #keys = [];
+  // @ts-ignore TS2552
+  keys() {
+    return this.#keys[Symbol.iterator]();
+  }
+  // @ts-ignore TS2552
+  values() {
+    return this.#keys.map((key) => this.get(key))[Symbol.iterator]();
+  }
+  // @ts-ignore TS2552
+  entries() {
+    return this.#keys.map((key) => [key, this.get(key)])[Symbol.iterator]();
+  }
+  add(key, value) {
+    if (!this.has(key)) {
+      this.#keys.push(key);
+      super.set(key, value);
+      return true;
     }
-    // @ts-ignore TS2552
-    values() {
-        return this.#keys.map((key) => this.get(key))[Symbol.iterator]();
+    return false;
+  }
+  at(index) {
+    const key = this.#keys[index];
+    if (key === undefined) {
+      return none();
     }
-    // @ts-ignore TS2552
-    entries() {
-        return this.#keys.map((key) => [key, this.get(key)])[Symbol.iterator]();
+    const value = this.get(key);
+    if (value === undefined) {
+      return none();
     }
-    add(key, value) {
-        if (!this.has(key)) {
-            this.#keys.push(key);
-            super.set(key, value);
-            return true;
-        }
-        return false;
+    return some([key, value]);
+  }
+  valueAt(index) {
+    const key = this.#keys[index];
+    if (key === undefined) {
+      return none();
     }
-    at(index) {
-        const key = this.#keys[index];
-        if (key === undefined) {
-            return none();
-        }
-        const value = this.get(key);
-        if (value === undefined) {
-            return none();
-        }
-        return some([key, value]);
+    return some(this.get(key));
+  }
+  keyAt(index) {
+    const key = this.#keys[index];
+    if (key === undefined) {
+      return none();
     }
-    valueAt(index) {
-        const key = this.#keys[index];
-        if (key === undefined) {
-            return none();
-        }
-        return some(this.get(key));
+    return some(key);
+  }
+  set(key, value) {
+    if (!this.has(key)) {
+      this.#keys.push(key);
     }
-    keyAt(index) {
-        const key = this.#keys[index];
-        if (key === undefined) {
-            return none();
-        }
-        return some(key);
+    return super.set(key, value);
+  }
+  delete(key) {
+    const index = this.#keys.indexOf(key);
+    if (index !== -1) {
+      this.#keys.splice(index, 1);
     }
-    set(key, value) {
-        if (!this.has(key)) {
-            this.#keys.push(key);
-        }
-        return super.set(key, value);
+    return super.delete(key);
+  }
+  clear() {
+    this.#keys = [];
+    return super.clear();
+  }
+  toObject() {
+    const obj = {};
+    for (const key of this.#keys) {
+      if (typeof key === "string") {
+        obj[key] = this.get(key);
+      } else if (typeof key === "symbol") {
+        obj[key] = this.get(key);
+      } else {
+        const k = String(key);
+        obj[k] = this.get(key);
+      }
     }
-    delete(key) {
-        const index = this.#keys.indexOf(key);
-        if (index !== -1) {
-            this.#keys.splice(index, 1);
-        }
-        return super.delete(key);
-    }
-    clear() {
-        this.#keys = [];
-        return super.clear();
-    }
-    toObject() {
-        const obj = {};
-        for (const key of this.#keys) {
-            if (typeof key === "string") {
-                obj[key] = this.get(key);
-            }
-            else if (typeof key === "symbol") {
-                obj[key] = this.get(key);
-            }
-            else {
-                const k = String(key);
-                obj[k] = this.get(key);
-            }
-        }
-        return obj;
-    }
+    return obj;
+  }
 }
