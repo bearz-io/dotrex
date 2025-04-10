@@ -64,7 +64,9 @@
       "name": "@dotrex/rex-cli",
       "version": "0.0.0-alpha.0",
       "bin": {
-        "rex": "./esm/main_node.js",        "dotrex": "./esm/main_node.js"      },
+        "rex": "./esm/main_node.js",
+        "dotrex": "./esm/main_node.js",
+      },
       "dependencies": {
         "@bearz/exec": "^0.1.0",
         "@bearz/process": "^0.1.0",
