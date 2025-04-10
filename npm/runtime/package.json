@@ -16,55 +16,55 @@
     "bugs": {
         "url": "https://github.com/bearz-io/dotrex/discussions"
     },
-    "module": "./esm/runtime/mod.js",
-    "types": "./types/runtime/mod.d.ts",
+    "module": "./esm/mod.js",
+    "types": "./types/mod.d.ts",
     "exports": {
         ".": {
             "import": {
-                "types": "./types/runtime/mod.d.ts",
-                "default": "./esm/runtime/mod.js"
+                "types": "./types/mod.d.ts",
+                "default": "./esm/mod.js"
             }
         },
         "./bus": {
             "import": {
-                "types": "./types/runtime/bus/mod.d.ts",
-                "default": "./esm/runtime/bus/mod.js"
+                "types": "./types/bus/mod.d.ts",
+                "default": "./esm/bus/mod.js"
             }
         },
         "./host/writer": {
             "import": {
-                "types": "./types/runtime/host/writer.d.ts",
-                "default": "./esm/runtime/host/writer.js"
+                "types": "./types/host/writer.d.ts",
+                "default": "./esm/host/writer.js"
             }
         },
         "./discovery": {
             "import": {
-                "types": "./types/runtime/discovery/mod.d.ts",
-                "default": "./esm/runtime/discovery/mod.js"
+                "types": "./types/discovery/mod.d.ts",
+                "default": "./esm/discovery/mod.js"
             }
         },
         "./tasks": {
             "import": {
-                "types": "./types/runtime/tasks/mod.d.ts",
-                "default": "./esm/runtime/tasks/mod.js"
+                "types": "./types/tasks/mod.d.ts",
+                "default": "./esm/tasks/mod.js"
             }
         },
         "./jobs": {
             "import": {
-                "types": "./types/runtime/jobs/mod.d.ts",
-                "default": "./esm/runtime/jobs/mod.js"
+                "types": "./types/jobs/mod.d.ts",
+                "default": "./esm/jobs/mod.js"
             }
         },
         "./deployments": {
             "import": {
-                "types": "./types/runtime/deployments/mod.d.ts",
-                "default": "./esm/runtime/deployments/mod.js"
+                "types": "./types/deployments/mod.d.ts",
+                "default": "./esm/deployments/mod.js"
             }
         },
         "./di": {
             "import": {
-                "types": "./types/runtime/di/mod.d.ts",
-                "default": "./esm/runtime/di/mod.js"
+                "types": "./types/di/mod.d.ts",
+                "default": "./esm/di/mod.js"
             }
         }
     },

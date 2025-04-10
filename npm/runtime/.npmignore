@@ -1,6 +1,6 @@
 /src/
-/esm/runtime/command.test.js
-/types/runtime/command.test.d.ts
+/esm/command.test.js
+/types/command.test.d.ts
 /test_runner.js
 yarn.lock
 pnpm-lock.yaml

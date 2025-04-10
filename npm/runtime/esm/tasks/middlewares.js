@@ -1,4 +1,3 @@
-import type { Next } from "@dotrex/core/pipelines";
 import {
     CyclicalTaskReferences,
     MissingTaskDependencies,
@@ -7,53 +6,45 @@ import {
     TaskFailed,
     TaskSkipped,
     TaskStarted,
-} from "./messages.ts";
+} from "./messages.js";
 import {
-    type TaskPipeline,
     TaskPipelineContext,
     TaskPipelineMiddleware,
-    type TasksPipelineContext,
     TasksPipelineMiddleware,
-} from "./pipelines.ts";
+} from "./pipelines.js";
 import { underscore } from "@bearz/strings/underscore";
-import { type Task, TaskResult } from "@dotrex/core/tasks";
+import { TaskResult } from "@dotrex/core/tasks";
 import { Inputs, Outputs, StringMap } from "@dotrex/core/collections";
 import { setCiVariable } from "@bearz/ci-env/vars";
 import { PipelineStatuses } from "@dotrex/core/enums";
-import { toError } from "../_utils.ts";
-
+import { toError } from "../_utils.js";
 export class ApplyTaskContext extends TaskPipelineMiddleware {
-    override async run(ctx: TaskPipelineContext, next: Next): Promise<void> {
+    async run(ctx, next) {
         const meta = ctx.model;
         const task = ctx.task;
         try {
             meta.env ??= new StringMap();
             meta.env.merge(ctx.env);
-
             if (typeof task.cwd === "string") {
                 meta.cwd = task.cwd;
             } else if (typeof task.cwd === "function") {
                 meta.cwd = await task.cwd(ctx);
             }
-
             if (typeof task.timeout === "number") {
                 meta.timeout = task.timeout;
             } else if (typeof task.timeout === "function") {
                 meta.timeout = await task.timeout(ctx);
             }
-
             if (typeof task.force === "boolean") {
                 meta.force = task.force;
             } else if (typeof task.force === "function") {
                 meta.force = await task.force(ctx);
             }
-
             if (typeof task.if === "boolean") {
                 meta.if = task.if;
             } else if (typeof task.if === "function") {
                 meta.if = await task.if(ctx);
             }
-
             if (typeof task.env === "function") {
                 const e = await task.env(ctx);
                 meta.env.merge(e);
@@ -61,13 +52,11 @@ export class ApplyTaskContext extends TaskPipelineMiddleware {
                 const e = task.env;
                 meta.env.merge(e);
             }
-
             if (typeof task.with === "function") {
                 meta.inputs = await task.with(ctx);
             } else if (typeof task.with !== "undefined") {
                 meta.inputs = task.with;
             }
-
             await next();
         } catch (e) {
             ctx.result.stop();
@@ -79,23 +68,19 @@ export class ApplyTaskContext extends TaskPipelineMiddleware {
             }
             ctx.result.fail(e);
             ctx.bus.send(new TaskFailed(meta, e));
-
             return;
         }
     }
 }
-
 export class TaskExecution extends TaskPipelineMiddleware {
-    override async run(ctx: TaskPipelineContext, next: Next): Promise<void> {
+    async run(ctx, next) {
         const { model } = ctx;
-
         if (ctx.signal.aborted) {
             ctx.result.cancel();
             ctx.result.stop();
             ctx.bus.send(new TaskCancelled(model));
             return;
         }
-
         if (
             ctx.status === PipelineStatuses.Failed ||
             ctx.status === PipelineStatuses.Cancelled && !model.force
@@ -105,21 +90,18 @@ export class TaskExecution extends TaskPipelineMiddleware {
             ctx.bus.send(new TaskSkipped(model));
             return;
         }
-
         if (model.if === false) {
             ctx.result.skip();
             ctx.result.stop();
             ctx.bus.send(new TaskSkipped(model));
             return;
         }
-
         let timeout = model.timeout;
         if (timeout === 0) {
-            timeout = ctx.services.get("timeout") as number ?? (60 * 1000) * 3;
+            timeout = ctx.services.get("timeout") ?? (60 * 1000) * 3;
         } else {
             timeout = timeout * 1000;
         }
-
         const controller = new AbortController();
         const onAbort = () => {
             controller.abort();
@@ -131,12 +113,10 @@ export class TaskExecution extends TaskPipelineMiddleware {
             ctx.result.stop();
             ctx.bus.send(new TaskCancelled(model));
         };
-
         signal.addEventListener("abort", listener, { once: true });
         const handle = setTimeout(() => {
             controller.abort();
         }, timeout);
-
         try {
             ctx.result.start();
             if (ctx.signal.aborted) {
@@ -145,25 +125,20 @@ export class TaskExecution extends TaskPipelineMiddleware {
                 ctx.bus.send(new TaskCancelled(model));
                 return;
             }
-
             ctx.bus.send(new TaskStarted(model));
-
             try {
                 const result = await ctx.task.run(ctx);
                 ctx.result.stop();
-
                 let outputs = new Outputs();
                 if (result instanceof Outputs) {
                     outputs = result;
                 }
-
                 if (ctx.signal.aborted) {
                     ctx.result.cancel();
                     ctx.result.stop();
                     ctx.bus.send(new TaskCancelled(model));
                     return;
                 }
-
                 ctx.result.success();
                 ctx.result.outputs = outputs;
                 ctx.bus.send(new TaskCompleted(model, ctx.result));
@@ -179,16 +154,13 @@ export class TaskExecution extends TaskPipelineMiddleware {
             signal.removeEventListener("abort", listener);
             ctx.signal.removeEventListener("abort", onAbort);
         }
-
         await next();
     }
 }
-
 export class SequentialTaskExecution extends TasksPipelineMiddleware {
-    override async run(ctx: TasksPipelineContext, next: Next): Promise<void> {
+    async run(ctx, next) {
         const { tasks } = ctx;
         const targets = ctx.targets;
-
         ctx.writer.debug(`task targets: ${targets.join(", ")}`);
         const cyclesRes = tasks.findCyclycalReferences();
         if (cyclesRes.length > 0) {
@@ -198,15 +170,13 @@ export class SequentialTaskExecution extends TasksPipelineMiddleware {
                 `Cyclical task references found: ${cyclesRes.map((o) => o.id).join(", ")}`,
             );
         }
-
         const missingDeps = tasks.missingDependencies();
         if (missingDeps.length > 0) {
             ctx.bus.send(new MissingTaskDependencies(missingDeps));
             ctx.status = PipelineStatuses.Failed;
             ctx.error = new Error("Tasks are missing dependencies");
         }
-
-        const targetTasks: Task[] = [];
+        const targetTasks = [];
         for (const target of targets) {
             const task = tasks.get(target);
             if (task) {
@@ -217,19 +187,15 @@ export class SequentialTaskExecution extends TasksPipelineMiddleware {
                 return;
             }
         }
-
         const flattenedResult = tasks.flatten(targetTasks);
         if (flattenedResult.isError) {
             ctx.status = PipelineStatuses.Failed;
             ctx.error = flattenedResult.unwrapError();
             return;
         }
-
         const taskSet = flattenedResult.unwrap();
-
         for (const task of taskSet) {
             const result = new TaskResult(task.id);
-
             if (
                 ctx.status === PipelineStatuses.Failed || ctx.status === PipelineStatuses.Cancelled
             ) {
@@ -239,12 +205,10 @@ export class SequentialTaskExecution extends TasksPipelineMiddleware {
                     continue;
                 }
             }
-
             const envData = new StringMap();
             envData.merge(ctx.env);
             const outputs = new Outputs();
             outputs.merge(ctx.outputs);
-
             const nextContext = new TaskPipelineContext(ctx, task, {
                 id: task.id,
                 name: task.name === undefined || task.name.length === 0 ? task.id : task.name,
@@ -259,20 +223,17 @@ export class SequentialTaskExecution extends TasksPipelineMiddleware {
                 needs: [],
                 uses: "",
             });
-            const taskPipeline = ctx.services.get("TaskPipeline") as TaskPipeline;
+            const taskPipeline = ctx.services.get("TaskPipeline");
             if (!taskPipeline) {
                 ctx.error = new Error(`Service not found: task-pipeline`);
                 ctx.bus.error(ctx.error);
                 ctx.status = PipelineStatuses.Failed;
                 return;
             }
-
             const r = await taskPipeline.run(nextContext);
-
             const normalized = underscore(task.id.replace(/:/g, "_"));
             ctx.outputs.set(`task.${normalized}`, r.outputs);
             ctx.outputs.set(normalized, r.outputs);
-
             for (const [key, value] of nextContext.secrets) {
                 if (ctx.secrets.has(key)) {
                     const old = ctx.secrets.get(key);
@@ -293,7 +254,6 @@ export class SequentialTaskExecution extends TasksPipelineMiddleware {
                     setCiVariable(envName, value, { secret: true });
                 }
             }
-
             for (const [key, value] of nextContext.env) {
                 if (ctx.env.has(key)) {
                     const old = ctx.env.get(key);
@@ -308,23 +268,19 @@ export class SequentialTaskExecution extends TasksPipelineMiddleware {
                     setCiVariable(key, value);
                 }
             }
-
             ctx.results.push(r);
             if (ctx.status !== PipelineStatuses.Failed) {
                 if (r.status === PipelineStatuses.Failed) {
                     ctx.status = PipelineStatuses.Failed;
                     ctx.error = r.error;
-
                     break;
                 }
-
                 if (r.status === PipelineStatuses.Cancelled) {
                     ctx.status = PipelineStatuses.Cancelled;
                     break;
                 }
             }
         }
-
         await next();
     }
 }
