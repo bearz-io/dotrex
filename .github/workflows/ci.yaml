@@ -39,29 +39,29 @@ jobs:
       - name: Run Deno Tests
         run: deno task test
 
-      - name: Generate Code Coverage
-        if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
-        run: deno task cov
+      # - name: Generate Code Coverage
+      #   if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
+      #   run: deno task cov
         
-      - name: Upload Code Coverage
-        uses: codecov/codecov-action@v5
-        if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
-        with:
-          fail_ci_if_error: true # optional (default = false)
-          files: .artifacts/coverage/cobertura-coverage.xml # optional
-          token: ${{ secrets.CODE_COV_TOKEN }}
-          verbose: true # optional (default = false)
+      # - name: Upload Code Coverage
+      #   uses: codecov/codecov-action@v5
+      #   if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
+      #   with:
+      #     fail_ci_if_error: true # optional (default = false)
+      #     files: .artifacts/coverage/cobertura-coverage.xml # optional
+      #     token: ${{ secrets.CODE_COV_TOKEN }}
+      #     verbose: true # optional (default = false)
 
-      - name: Zip Code Coverage Report
-        if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
-        run: zip -r ./.artifacts/coverage-report.zip .artifacts/coverage
+      # - name: Zip Code Coverage Report
+      #   if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
+      #   run: zip -r ./.artifacts/coverage-report.zip .artifacts/coverage
 
-      - name: Publish Code Coverage Report
-        uses: actions/upload-artifact@v4
-        if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
-        with:
-          name: coverage-report
-          path: ./.artifacts/coverage-report.zip
+      # - name: Publish Code Coverage Report
+      #   uses: actions/upload-artifact@v4
+      #   if: startsWith(github.ref, 'refs/heads/main') && matrix.os == 'ubuntu-latest'
+      #   with:
+      #     name: coverage-report
+      #     path: ./.artifacts/coverage-report.zip
 
       - name: Run Bun Install
         run: deno task bun:install
