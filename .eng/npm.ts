@@ -28,7 +28,7 @@ if (args.includes("publish")) {
                 Deno.exit(o.code);
             }
         } else {
-            const o = await cmd("npm", ["publish"], { cwd: dir }).run();
+            const o = await cmd("npm", ["publish", "--provenance", "--access", "public"], { cwd: dir }).run();
             if (o.code !== 0) {
                 console.error("Error running npm publish");
                 Deno.exit(o.code);
