@@ -14,7 +14,7 @@
             ".github",
             "**/*.test.ts",
             "node_modules/**",
-            "./npm",
+            "npm/**",
             ".artifacts",
             "vitest.config.ts",
             ".prototools"
