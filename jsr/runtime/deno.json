@@ -1,6 +1,6 @@
 {
     "name": "@dotrex/runtime",
-    "version": "0.0.0-alpha.1",
+    "version": "0.0.0-alpha.2",
     "description": "Rex Core",
     "exports": {
         ".": "./mod.ts",

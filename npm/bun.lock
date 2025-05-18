@@ -2,6 +2,28 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {},
+    "bun-rex": {
+      "name": "@dotrex/bun-rex",
+      "version": "0.0.0-alpha.1",
+      "bin": {
+        "rex": "./esm/main_node.js",
+        "dotrex": "./esm/main_node.js",
+      },
+      "dependencies": {
+        "@bearz/exec": "^0.1.1",
+        "@bearz/process": "^0.1.0",
+        "@dotrex/command": "^0.0.0-alpha.1",
+        "@dotrex/core": "^0.0.0-alpha.1",
+        "@dotrex/flags": "^0.0.0-alpha.1",
+        "@dotrex/runtime": "^0.0.0-alpha.1",
+      },
+      "devDependencies": {
+        "@bearz/assert": "^0.1.0",
+        "@bearz/testing": "^0.0.0",
+        "@types/node": "^22.14.0",
+        "picocolors": "^1.0.0",
+      },
+    },
     "command": {
       "name": "@dotrex/command",
       "version": "0.0.0-alpha.1",
@@ -9,8 +31,8 @@
         "@bearz/ansi": "^0.1.0",
         "@bearz/env": "^0.1.3",
         "@bearz/process": "^0.1.0",
-        "@dotrex/flags": "*",
-        "@dotrex/table": "*",
+        "@dotrex/flags": "^0.0.0-alpha.1",
+        "@dotrex/table": "^0.0.0-alpha.1",
       },
       "devDependencies": {
         "@bearz/assert": "^0.1.0",
@@ -62,18 +84,18 @@
     },
     "rex-cli": {
       "name": "@dotrex/rex-cli",
-      "version": "0.0.0-alpha.0",
+      "version": "0.0.0-alpha.1",
       "bin": {
         "rex": "./esm/main_node.js",
         "dotrex": "./esm/main_node.js",
       },
       "dependencies": {
-        "@bearz/exec": "^0.1.0",
+        "@bearz/exec": "^0.1.1",
         "@bearz/process": "^0.1.0",
-        "@dotrex/command": "*",
-        "@dotrex/core": "*",
-        "@dotrex/flags": "*",
-        "@dotrex/runtime": "*",
+        "@dotrex/command": "^0.0.0-alpha.1",
+        "@dotrex/core": "^0.0.0-alpha.1",
+        "@dotrex/flags": "^0.0.0-alpha.1",
+        "@dotrex/runtime": "^0.0.0-alpha.1",
       },
       "devDependencies": {
         "@bearz/assert": "^0.1.0",
@@ -94,7 +116,7 @@
         "@bearz/result": "^0.0.0",
         "@bearz/secrets": "^0.1.0",
         "@bearz/strings": "^0.1.3",
-        "@dotrex/core": "*",
+        "@dotrex/core": "^0.0.0-alpha.1",
       },
       "devDependencies": {
         "@bearz/assert": "^0.1.0",
@@ -130,7 +152,7 @@
 
     "@bearz/env": ["@bearz/env@0.1.3", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/strings": "^0.1.3" } }, "sha512-U2X1RVK9SZxNTYSJ1isRU11gg4DwZH5AuWG4tNI2Kt13JYe/j04pPYPbBO6ciVQMlAAOfPn6fPd6bha8/51niQ=="],
 
-    "@bearz/exec": ["@bearz/exec@0.1.0", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/env": "^0.1.3", "@bearz/fs": "^0.1.0", "@bearz/path": "^0.0.0", "@bearz/strings": "^0.1.3" } }, "sha512-beBbehxLZb/sjLpaXU64nObFis1cjj2cqDdaY1nH0bLe6j0FdLa2/nrKl8eXhE59Mum04vco1dKiSfSegYNl/g=="],
+    "@bearz/exec": ["@bearz/exec@0.1.1", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/env": "^0.1.3", "@bearz/fs": "^0.1.0", "@bearz/path": "^0.0.0", "@bearz/strings": "^0.1.3" } }, "sha512-eJ25Ea9dqiFBqRGe5J0xP5fVdDAq9jJSXEJxmZBgaVZ02TMXXa2kffCT2fseso34Jstdj0IDks+PK/2JWiRDrA=="],
 
     "@bearz/fmt": ["@bearz/fmt@0.1.0", "", { "dependencies": { "@bearz/process": "^0.1.0" } }, "sha512-cs1TlpJEFhPp29zd2klcGt5Lc0UE25DGnSK7uqYb/drF9W4Upnl2ab3Xb/A5tUrMhs1AbfQDw8uDo8sAQ3wqWg=="],
 
@@ -151,6 +173,8 @@
     "@bearz/strings": ["@bearz/strings@0.1.3", "", { "dependencies": { "@bearz/chars": "^0.1.0", "@bearz/slices": "^0.1.1" } }, "sha512-0oZO+2SeC4QTVV2icxweGfxjBADhB9NqdUI0UJUabi29YaN3fU2xOslh3O9g08CZI5h3VQXqYRDcqjz/q6BnWw=="],
 
     "@bearz/testing": ["@bearz/testing@0.0.0", "", {}, "sha512-tKBN8kBR2nP8mpZLJFrqG0Esej23eXLXZNrxj5cAtwT6vbGMKPIhePqVQH8zgcJOlhivKYZNmHjk36px4MaFAQ=="],
+
+    "@dotrex/bun-rex": ["@dotrex/bun-rex@workspace:bun-rex"],
 
     "@dotrex/command": ["@dotrex/command@workspace:command"],
 

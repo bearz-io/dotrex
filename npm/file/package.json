@@ -1,6 +1,6 @@
 {
     "name": "@dotrex/file",
-    "version": "0.0.0-alpha.1",
+    "version": "0.0.0-alpha.2",
     "description": "Core dotrex primitives for defining tasks, jobs, and deployments in rex files",
     "keywords": [
         "dotrex",
@@ -44,7 +44,7 @@
     },
     "type": "module",
     "dependencies": {
-        "@dotrex/core": "^0.0.0-alpha.1"
+        "@dotrex/core": "^0.0.0-alpha.2"
     },
     "devDependencies": {
         "picocolors": "^1.0.0",

@@ -1,6 +1,7 @@
 import { dirname, fromFileUrl } from "jsr:@std/path@1";
 import { build, emptyDir, type EntryPoint } from "jsr:@deno/dnt";
 import { exists } from "@bearz/fs/exists";
+import { copy } from "@bearz/fs";
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 const pwd = dirname(__dirname);
@@ -186,11 +187,28 @@ for (const project of projects) {
 
     //await import("./fmt-npm.ts");
 }
-
-let content2 = Deno.readTextFileSync(`${pwd}/npm/rex-cli/esm/main_node.js`);
-content2 = `#!/usr/bin/env node
-${content2}`;
+const tpl = Deno.readTextFileSync(`${pwd}/npm/rex-cli/esm/main_node.js`);
+const content2 = `#!/usr/bin/env node
+${tpl}`;
 Deno.writeTextFileSync(`${pwd}/npm/rex-cli/esm/main_node.js`, content2);
+
+
+if (await exists(`${pwd}/npm/bun-rex`)) {
+    await Deno.remove(`${pwd}/npm/bun-rex`, { recursive: true });
+}
+
+await copy(`${pwd}/npm/rex-cli`, `${pwd}/npm/bun-rex`);
+
+let content3 = Deno.readTextFileSync(`${pwd}/npm/bun-rex/package.json`);
+const pkg = JSON.parse(content3);
+pkg.name = "@dotrex/bun-rex";
+content3 = JSON.stringify(pkg, null, 4);
+
+
+const content4 = `#!/usr/bin/env bun
+${tpl}`;
+Deno.writeTextFileSync(`${pwd}/npm/bun-rex/package.json`, content3);
+Deno.writeTextFileSync(`${pwd}/npm/bun-rex/esm/main_node.js`, content4);
 
 const cmd = new Deno.Command("bun", {
     args: ["run", "npm", "install", "--package-lock-only"],

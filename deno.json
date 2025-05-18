@@ -123,7 +123,7 @@
         "@bearz/ci-env": "jsr:@bearz/ci-env@^0.1.0",
         "@bearz/dotenv": "jsr:@bearz/dotenv@^0.1.0",
         "@bearz/env": "jsr:@bearz/env@^0.1.3",
-        "@bearz/exec": "jsr:@bearz/exec@^0.1.0",
+        "@bearz/exec": "jsr:@bearz/exec@^0.1.1",
         "@bearz/fmt": "jsr:@bearz/fmt@^0.1.0",
         "@bearz/fs": "jsr:@bearz/fs@^0.1.0",
         "@bearz/option": "jsr:@bearz/option@^0.0.0",

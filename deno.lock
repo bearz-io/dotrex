@@ -1,5 +1,5 @@
 {
-  "version": "4",
+  "version": "5",
   "specifiers": {
     "jsr:@bearz/ansi@0.1": "0.1.0",
     "jsr:@bearz/assert@0.1": "0.1.0",
@@ -7,8 +7,8 @@
     "jsr:@bearz/ci-env@0.1": "0.1.0",
     "jsr:@bearz/dotenv@0.1": "0.1.0",
     "jsr:@bearz/env@~0.1.3": "0.1.3",
-    "jsr:@bearz/exec@*": "0.1.0",
-    "jsr:@bearz/exec@0.1": "0.1.0",
+    "jsr:@bearz/exec@*": "0.1.1",
+    "jsr:@bearz/exec@~0.1.1": "0.1.1",
     "jsr:@bearz/fmt@0.1": "0.1.0",
     "jsr:@bearz/fs@*": "0.1.0",
     "jsr:@bearz/fs@0.1": "0.1.0",
@@ -86,8 +86,8 @@
         "jsr:@bearz/strings"
       ]
     },
-    "@bearz/exec@0.1.0": {
-      "integrity": "58e373404672a25c4c94ab6498907a76e1d227a24bbb29da978649295b56e162",
+    "@bearz/exec@0.1.1": {
+      "integrity": "061c4595e4635990997873d0228be75877156dc5772a75a54fa84471c9740172",
       "dependencies": [
         "jsr:@bearz/chars",
         "jsr:@bearz/env",
@@ -267,7 +267,7 @@
       "jsr:@bearz/ci-env@0.1",
       "jsr:@bearz/dotenv@0.1",
       "jsr:@bearz/env@~0.1.3",
-      "jsr:@bearz/exec@0.1",
+      "jsr:@bearz/exec@~0.1.1",
       "jsr:@bearz/fmt@0.1",
       "jsr:@bearz/fs@0.1",
       "jsr:@bearz/option@^0.0.0",
